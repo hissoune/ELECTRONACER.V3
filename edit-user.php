@@ -74,7 +74,7 @@
         ?>
 
         <!-- Add a button to return to the user list page -->
-        <a href="user_list.php" class="btn btn-primary btn-back">Back to User List</a>
+        <a href="user-management.php" class="btn btn-primary btn-back">Back to User List</a>
     </div>
 
     <!-- Bootstrap JS (Optional) -->

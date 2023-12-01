@@ -47,21 +47,21 @@ $userResult = $conn->query($userSql);
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
     <!-- Custom CSS for styling -->
     <style>
-    body {
-        background-color: #f8f9fa;
-    }
+        body {
+            background-color: #f8f9fa;
+        }
 
-    .container {
-        margin-top: 50px;
-    }
+        .container {
+            margin-top: 50px;
+        }
 
-    .btn-hide {
-        width: 80px;
-    }
+        .btn-hide {
+            width: 80px;
+        }
 
-    .btn-modify {
-        width: 80px;
-    }
+        .btn-modify {
+            width: 80px;
+        }
     </style>
 </head>
 
@@ -137,7 +137,7 @@ $userResult = $conn->query($userSql);
         echo '           </div>';
         echo '           <div class="modal-body">';
         echo '               <!-- Your form for editing user details goes here -->';
-        echo '               <form method="post" action="edit_user.php">';
+        echo '               <form method="post" action="edit-user.php">';
         echo '                   <input type="hidden" name="user_id" value="' . $userData['user_id'] . '">';
         echo '                   <div class="mb-3">';
         echo '                       <label for="editUsername' . $userData['user_id'] . '" class="form-label">Username</label>';
