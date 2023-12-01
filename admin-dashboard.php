@@ -31,17 +31,17 @@ $conn->close();
 
     <!-- Custom CSS for styling -->
     <style>
-    body {
-        background-color: #f8f9fa;
-    }
+        body {
+            background-color: #f8f9fa;
+        }
 
-    .container {
-        margin-top: 50px;
-    }
+        .container {
+            margin-top: 50px;
+        }
 
-    .card {
-        margin-bottom: 20px;
-    }
+        .card {
+            margin-bottom: 20px;
+        }
     </style>
 </head>
 
@@ -64,8 +64,9 @@ $conn->close();
                 <h4 class="card-title">Admin Options</h4>
                 <ul>
                     <li><a href="user-management.php">User List</a></li>
-                    <li><a href="#">Option 2</a></li>
-                    <!-- Add more admin options as needed -->
+                    <li><a href="product-management.php">Product List</li>
+                    <li><a href="catrigory-management.php">Categories List</li>
+                    <li><a href="order-management.php">Order List</li>
                 </ul>
             </div>
         </div>
