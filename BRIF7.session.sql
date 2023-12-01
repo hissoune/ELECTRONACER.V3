@@ -13,6 +13,7 @@ CREATE TABLE Users (
     full_name VARCHAR(255) NOT NULL,
     phone_number VARCHAR(15),
     address VARCHAR(255),
+    disabled BOOLEAN DEFAULT FALSE NOT NULL,
     city VARCHAR(100)
 );
 -- Table for product categories
@@ -502,6 +503,7 @@ INSERT INTO Users (
         full_name,
         phone_number,
         address,
+        disabled,
         city
     )
 VALUES (
@@ -513,6 +515,7 @@ VALUES (
         'Admin User',
         '123456789',
         'Admin Address',
+        0,
         'Admin City'
     ),
     (
@@ -524,6 +527,7 @@ VALUES (
         'Regular User',
         '987654321',
         'User Address',
+        0,
         'User City'
     ),
     (
@@ -532,8 +536,9 @@ VALUES (
         'user123',
         'user',
         FALSE,
-        'Inactive User',
+        'User1 User',
         '111222333',
-        'Inactive Address',
-        'Inactive City'
+        'User1 Address',
+        0,
+        'User1 City'
     );
