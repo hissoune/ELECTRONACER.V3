@@ -42,22 +42,22 @@ $conn->close();
 
     <!-- Custom CSS for styling -->
     <style>
-        body {
-            background-color: #f8f9fa;
-        }
+    body {
+        background-color: #f8f9fa;
+    }
 
-        .container {
-            margin-top: 50px;
-        }
+    .container {
+        margin-top: 50px;
+    }
 
-        .card {
-            margin-bottom: 20px;
-        }
+    .card {
+        margin-bottom: 20px;
+    }
 
-        .user-details {
-            font-weight: bold;
-            font-size: 1.2rem;
-        }
+    .user-details {
+        font-weight: bold;
+        font-size: 1.2rem;
+    }
     </style>
 </head>
 
@@ -65,7 +65,8 @@ $conn->close();
     <!-- Navigation Bar -->
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <a class="navbar-brand" href="#">Product Listing</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarNav">
@@ -77,7 +78,8 @@ $conn->close();
                     <a class="nav-link" href="products.php">Products</a>
                 </li>
                 <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         USER
                     </a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">

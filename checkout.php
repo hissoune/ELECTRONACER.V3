@@ -1,122 +1,104 @@
 <?php
-session_start(); // Start the session
-include 'db_cnx.php'; // Include your database connection file
+include('db_cnx.php');
+session_start();
 
-// Check if the cart is not empty
-if (!empty($_SESSION['cart'])) {
-    $cartProductIds = implode(',', array_keys($_SESSION['cart']));
+// Check if the user is logged in
+if (!isset($_SESSION["user"])) {
+    header("Location: login.php");
+    exit();
+}
+// Get user role from the session
+$userRole = $_SESSION['user']['role'];
 
-    // Fetch cart products from the database
-    $cartSql = "SELECT * FROM Products WHERE product_id IN ($cartProductIds)";
-    $cartResult = $conn->query($cartSql);
+// Fetch user information from the database
+$userId = $_SESSION['user']['user_id'];
+$userSql = "SELECT * FROM Users WHERE user_id = '$userId'";
+$userResult = $conn->query($userSql);
 
-    // Check if there are products in the cart
-    if ($cartResult->num_rows > 0) {
-?>
-
-        <!DOCTYPE html>
-        <html lang="en">
-
-        <head>
-            <meta charset="UTF-8">
-            <meta name="viewport" content="width=device-width, initial-scale=1.0">
-            <title>Checkout</title>
-
-            <!-- Bootstrap CSS -->
-            <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
-
-            <!-- Custom CSS for styling -->
-            <style>
-                body {
-                    background-color: #f8f9fa;
-                }
-
-                .container {
-                    margin-top: 50px;
-                }
-
-                .card {
-                    margin-bottom: 20px;
-                }
-
-                .total-price {
-                    font-weight: bold;
-                    font-size: 1.2rem;
-                }
-            </style>
-        </head>
-
-        <body>
-            <!-- Navbar -->
-            <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-                <div class="container-fluid">
-                    <a class="navbar-brand" href="#">Your Brand</a>
-                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                        <span class="navbar-toggler-icon"></span>
-                    </button>
-                    <div class="collapse navbar-collapse" id="navbarNav">
-                        <ul class="navbar-nav">
-                            <li class="nav-item">
-                                <a class="nav-link" href="#">Home</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="#">Products</a>
-                            </li>
-                            <!-- Add more navigation links as needed -->
-                        </ul>
-                    </div>
-                </div>
-            </nav>
-
-            <div class="container">
-                <h2 class="mb-4">Checkout</h2>
-
-                <form action="process_checkout.php" method="post">
-                    <?php
-                    $totalPrice = 0;
-
-                    while ($cartProduct = $cartResult->fetch_assoc()) {
-                        $productId = $cartProduct['product_id'];
-                        $quantity = $_SESSION['cart'][$productId];
-                        $subtotal = $cartProduct['final_price'] * $quantity;
-                        $totalPrice += $subtotal;
-                    ?>
-                        <div class="card">
-                            <div class="card-body">
-                                <h5 class="card-title"><?php echo $cartProduct['label']; ?></h5>
-                                <p class="card-text">Quantity: <?php echo $quantity; ?></p>
-                                <p class="card-text">Price: $<?php echo $cartProduct['final_price']; ?></p>
-                                <p class="card-text">Subtotal: $<?php echo number_format($subtotal, 2); ?></p>
-                                <!-- Add more details as needed -->
-                            </div>
-                        </div>
-                    <?php
-                    }
-                    ?>
-
-                    <p class="total-price">Total Price: $<?php echo number_format($totalPrice, 2); ?></p>
-
-                    <!-- Add checkout form fields (e.g., name, address) as needed -->
-
-                    <button type="submit" class="btn btn-primary">Place Order</button>
-                </form>
-            </div>
-
-            <!-- Bootstrap JS (Optional) -->
-            <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
-            <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-        </body>
-
-        </html>
-
-<?php
-    } else {
-        echo "No products in the cart.";
-    }
+// Check if the user exists
+if ($userResult->num_rows > 0) {
+    $userData = $userResult->fetch_assoc();
+    $fullName = $userData['full_name'];
+    $address = $userData['address'];
 } else {
-    echo "Cart is empty.";
+    // Handle the case where user information is not found
+    echo "User information not found. Please update your profile. Error: " . mysqli_error($conn); // Debugging line
+    exit();
 }
 
-// Close the database connection
-$conn->close();
+// Retrieve cart items from the session
+$cartItems = isset($_SESSION['cart']) ? $_SESSION['cart'] : [];
 ?>
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <title>Checkout</title>
+</head>
+
+<body>
+
+    <?php include("nav.php"); ?>
+
+    <div class="container mt-5">
+        <h2>Checkout</h2>
+        <form method="post" action="process-checkout.php">
+            <!-- Display user information fetched from the database -->
+            <div class="form-group">
+                <label for="fullname">Full Name:</label>
+                <input type="text" class="form-control" id="fullname" name="fullname" value="<?php echo $fullName; ?>"
+                    readonly>
+            </div>
+            <div class="form-group">
+                <label for="address">Address:</label>
+                <input type="text" class="form-control" id="address" name="address" value="<?php echo $address; ?>"
+                    readonly>
+            </div>
+            <!-- Add more fields as needed -->
+
+            <!-- Display a summary of the order -->
+            <h4>Order Summary:</h4>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Product</th>
+                        <th>Quantity</th>
+                        <th>Price</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php
+                    $totalPrice = 0; // Initialize total price
+                    foreach ($cartItems as $item) :
+                        $totalPrice += $item['quantity'] * $item['price']; // Add the product total to the overall total
+                    ?>
+                    <tr>
+                        <td><?php echo $item['name']; ?></td>
+                        <td><?php echo $item['quantity']; ?></td>
+                        <td>$<?php echo $item['price']; ?></td>
+                    </tr>
+                    <?php endforeach; ?>
+                </tbody>
+            </table>
+
+            <!-- Display total price -->
+            <p><strong>Total Price:</strong> $<?php echo number_format($totalPrice, 2); ?></p>
+
+            <!-- Add a button to confirm the purchase -->
+            <button type="submit" class="btn btn-primary">Confirm Purchase</button>
+
+        </form>
+    </div>
+
+    <!-- Bootstrap JS and Popper.js -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+</body>
+
+</html>

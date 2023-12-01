@@ -1,47 +1,53 @@
-<?php
-// Include your database connection file
-include('db_cnx.php');
-session_start();
-// Fetch products from the database
-$query = "SELECT * FROM Products";
-$result = mysqli_query($conn, $query);
-
-// Close the database connection
-mysqli_close($conn);
-?>
-
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <title>Product Listing</title>
-    <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 </head>
 
 <body>
 
-    <!-- Navigation Bar -->
     <?php
-    include("nav.php")
+    session_start();
+    include 'db_cnx.php';
+
+    $query = "SELECT * FROM Products";
+    $result = mysqli_query($conn, $query);
+
+    if (!isset($_SESSION["user"])) {
+        header("Location: login.php");
+        exit();
+    }
+
+    $userId = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : '';
+    $username = isset($_SESSION['username']) ? $_SESSION['username'] : '';
+    $userRole = isset($_SESSION["user"]["role"]) ? $_SESSION["user"]["role"] : '';
     ?>
 
+    <?php include("nav.php"); ?>
     <div class="container mt-5">
         <div class="row">
             <?php
-            // Check if there are any products
             if (mysqli_num_rows($result) > 0) {
                 while ($row = mysqli_fetch_assoc($result)) {
-                    // Output product information in Bootstrap cards
                     echo '<div class="col-md-4 mb-4">';
                     echo '<div class="card">';
+                    // Make the image clickable and link to the product detail page
+                    echo '<a href="product-details.php?id=' . $row['product_id'] . '">';
                     echo '<img src="' . $row['image'] . '" class="card-img-top" alt="' . $row['label'] . '">';
+                    echo '</a>';
                     echo '<div class="card-body">';
                     echo '<h5 class="card-title">' . $row['label'] . '</h5>';
                     echo '<p class="card-text">Price: $' . $row['final_price'] . '</p>';
-                    echo '<p class="card-text">' . $row['description'] . '</p>';
+                    // Add to Cart button
+                    echo '<form method="post" action="cart.php?action=add&id=' . $row['product_id'] . '">';
+                    echo '<input type="hidden" name="hidden_name" value="' . $row['label'] . '">';
+                    echo '<input type="hidden" name="hidden_price" value="' . $row['final_price'] . '">';
+                    echo '<input type="submit" name="add_to_cart" value="Add to Cart">';
+                    echo '</form>';
                     echo '</div>';
                     echo '</div>';
                     echo '</div>';
@@ -51,12 +57,15 @@ mysqli_close($conn);
             }
             ?>
         </div>
+
     </div>
 
     <!-- Bootstrap JS and Popper.js -->
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.1/dist/umd/popper.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+
 </body>
 
 </html>
