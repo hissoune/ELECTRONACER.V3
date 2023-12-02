@@ -1,4 +1,0 @@
-    <!-- Navigation Bar -->
-    <?php
-    include("nav.php")
-    ?>

@@ -47,21 +47,21 @@ $userResult = $conn->query($userSql);
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
     <!-- Custom CSS for styling -->
     <style>
-        body {
-            background-color: #f8f9fa;
-        }
+    body {
+        background-color: #f8f9fa;
+    }
 
-        .container {
-            margin-top: 50px;
-        }
+    .container {
+        margin-top: 50px;
+    }
 
-        .btn-hide {
-            width: 80px;
-        }
+    .btn-hide {
+        width: 80px;
+    }
 
-        .btn-modify {
-            width: 80px;
-        }
+    .btn-modify {
+        width: 80px;
+    }
     </style>
 </head>
 
@@ -102,21 +102,18 @@ $userResult = $conn->query($userSql);
                         echo '<td>' . $userData['phone_number'] . '</td>';
                         echo '<td>' . $userData['address'] . '</td>';
                         echo '<td>' . $userData['city'] . '</td>';
-                        if (array_key_exists('disabled', $userData)) {
-                            echo $userData['disabled'] ? 'Disabled' : 'Enabled';
-                        } else {
-                            echo 'N/A'; // or handle the case when the key is not present
-                        }
-                        echo '<td>' . (isset($userData['user']) ? $userData['user'] : 'N/A') . '</td>';
+                        echo '<td>' . (array_key_exists('disabled', $userData) ? ($userData['disabled'] ? 'Disabled' : 'Enabled') : 'N/A') . '</td>';
                         echo '<td>';
                         echo '<button type="submit" name="toggle_disable" class="btn btn-warning btn-sm btn-disable mx-2" value="' . $userData['user_id'] . '">';
                         echo (array_key_exists('disabled', $userData) && $userData['disabled'] ? 'Enable' : 'Disable');
                         echo '</button>';
                         echo '<button type="button" class="btn btn-primary btn-sm btn-modify" data-bs-toggle="modal" data-bs-target="#editModal' . $userData['user_id'] . '">Modify</button>';
                         echo '</td>';
+
                         echo '</tr>';
                     }
                     ?>
+
 
                 </tbody>
             </table>
@@ -191,11 +188,6 @@ $userResult = $conn->query($userSql);
     ?>
 
 
-    <!-- Bootstrap JS (Optional) -->
-    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-
-
-</body>
-
-</html>
+    <?php
+    include("footer.php")
+    ?>

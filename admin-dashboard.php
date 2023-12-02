@@ -1,21 +1,8 @@
 <?php
-session_start(); // Start the session
-include 'db_cnx.php'; // Include your database connection file
+include('db_cnx.php');
+session_start();
 
-// Check if the user is logged in as an admin
-if (!isset($_SESSION['user']) || $_SESSION['user']['role'] !== 'admin') {
-    // Redirect to the login page if not logged in or not an admin
-    header("Location: login.php");
-    exit();
-}
 
-// Get user role from the session
-$userRole = $_SESSION['user']['role'];
-
-// Fetch admin options or perform admin functionality as needed
-
-// Close the database connection
-$conn->close();
 ?>
 
 <!DOCTYPE html>
@@ -29,32 +16,13 @@ $conn->close();
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
 
-    <!-- Custom CSS for styling -->
-    <style>
-        body {
-            background-color: #f8f9fa;
-        }
 
-        .container {
-            margin-top: 50px;
-        }
-
-        .card {
-            margin-bottom: 20px;
-        }
-    </style>
 </head>
 
 <body>
-    <!-- Navbar -->
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-        <div class="container-fluid">
-            <a class="navbar-brand" href="#">Your Brand</a>
-            <!-- Add navigation links as needed -->
-        </div>
-    </nav>
+    <?php include("nav.php"); ?>
 
-    <div class="container">
+    <div class="container mt-5">
         <h2 class="mb-4">Admin Dashboard</h2>
 
         <!-- Admin functionality goes here -->
@@ -62,19 +30,16 @@ $conn->close();
         <div class="card">
             <div class="card-body">
                 <h4 class="card-title">Admin Options</h4>
-                <ul>
-                    <li><a href="user-management.php">User List</a></li>
-                    <li><a href="product-management.php">Product List</li>
-                    <li><a href="catrigory-management.php">Categories List</li>
-                    <li><a href="order-management.php">Order List</li>
+                <ul class="list-group">
+                    <li class="list-group-item"><a href="user-management.php">User List</a></li>
+                    <li class="list-group-item"><a href="product-management.php">Product List</a></li>
+                    <li class="list-group-item"><a href="catrigory-management.php">Categories List</a></li>
+                    <li class="list-group-item"><a href="order-management.php">Order List</a></li>
                 </ul>
             </div>
         </div>
     </div>
 
-    <!-- Bootstrap JS (Optional) -->
-    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-</body>
-
-</html>
+    <?php
+    include("footer.php")
+    ?>

@@ -77,9 +77,6 @@
         <a href="user-management.php" class="btn btn-primary btn-back">Back to User List</a>
     </div>
 
-    <!-- Bootstrap JS (Optional) -->
-    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-</body>
-
-</html>
+    <?php
+    include("footer.php")
+    ?>

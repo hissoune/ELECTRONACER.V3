@@ -36,7 +36,7 @@ $cartItems = isset($_SESSION['cart']) ? $_SESSION['cart'] : [];
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
     <title>Checkout</title>
 </head>
 
@@ -50,13 +50,11 @@ $cartItems = isset($_SESSION['cart']) ? $_SESSION['cart'] : [];
             <!-- Display user information fetched from the database -->
             <div class="form-group">
                 <label for="fullname">Full Name:</label>
-                <input type="text" class="form-control" id="fullname" name="fullname" value="<?php echo $fullName; ?>"
-                    readonly>
+                <input type="text" class="form-control" id="fullname" name="fullname" value="<?php echo $fullName; ?>" readonly>
             </div>
             <div class="form-group">
                 <label for="address">Address:</label>
-                <input type="text" class="form-control" id="address" name="address" value="<?php echo $address; ?>"
-                    readonly>
+                <input type="text" class="form-control" id="address" name="address" value="<?php echo $address; ?>" readonly>
             </div>
             <!-- Add more fields as needed -->
 
@@ -76,11 +74,11 @@ $cartItems = isset($_SESSION['cart']) ? $_SESSION['cart'] : [];
                     foreach ($cartItems as $item) :
                         $totalPrice += $item['quantity'] * $item['price']; // Add the product total to the overall total
                     ?>
-                    <tr>
-                        <td><?php echo $item['name']; ?></td>
-                        <td><?php echo $item['quantity']; ?></td>
-                        <td>$<?php echo $item['price']; ?></td>
-                    </tr>
+                        <tr>
+                            <td><?php echo $item['name']; ?></td>
+                            <td><?php echo $item['quantity']; ?></td>
+                            <td>$<?php echo $item['price']; ?></td>
+                        </tr>
                     <?php endforeach; ?>
                 </tbody>
             </table>
@@ -94,11 +92,6 @@ $cartItems = isset($_SESSION['cart']) ? $_SESSION['cart'] : [];
         </form>
     </div>
 
-    <!-- Bootstrap JS and Popper.js -->
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-
-</body>
-
-</html>
+    <?php
+    include("footer.php")
+    ?>

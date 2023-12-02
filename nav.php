@@ -20,7 +20,7 @@ $cartItemCount = count($cartItems);
 ?>
 
 <!-- Navigation Bar -->
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark px-5">
     <a class="navbar-brand" href="#">Product Listing</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
         aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -30,13 +30,26 @@ $cartItemCount = count($cartItems);
         <ul class="navbar-nav ml-auto">
             <!-- Other menu items -->
             <li class="nav-item">
+                <a class="nav-link" href="home.php">Home</a>
+            </li>
+            <li class="nav-item">
                 <a class="nav-link" href="products.php">Products</a>
             </li>
-
             <?php
             // Check if the user is an admin
             if ($userRole === 'admin') { ?>
             <!-- Admin menu items -->
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
+                    aria-haspopup="true" aria-expanded="false">
+                    Admin
+                </a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                    <a class="dropdown-item" href="admin-dashboard.php">Admin Dashboard</a>
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item" href="logout.php">Logout</a>
+                </div>
+            </li>
             <?php } ?>
 
             <?php
