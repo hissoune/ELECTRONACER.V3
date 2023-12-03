@@ -37,7 +37,8 @@ $userRole = isset($_SESSION["user"]["role"]) ? $_SESSION["user"]["role"] : '';
                     echo '<div class="card">';
                     // Make the image clickable and link to the product detail page
                     echo '<a href="product-details.php?id=' . $row['product_id'] . '">';
-                    echo '<img src="' . $row['image'] . '" class="card-img-top" alt="' . $row['label'] . '">';
+                    echo '<img src="./uploads/' . $row['image'] . '" class="card-img-top" alt="' . $row['label'] . '">';
+
                     echo '</a>';
                     echo '<div class="card-body">';
                     echo '<h5 class="card-title">' . $row['label'] . '</h5>';
