@@ -1,6 +1,6 @@
 <?php
-session_start(); // Start the session
-include 'db_cnx.php'; // Include your database connection file
+include 'db_cnx.php';
+session_start();
 
 // Check if the user is logged in as an admin
 if (!isset($_SESSION['user']) || $_SESSION['user']['role'] !== 'admin') {
@@ -8,72 +8,74 @@ if (!isset($_SESSION['user']) || $_SESSION['user']['role'] !== 'admin') {
     header("Location: login.php");
     exit();
 }
-
-// Get user role from the session
-$userRole = $_SESSION['user']['role'];
-
-// Fetch admin options or perform admin functionality as needed
-
-// Close the database connection
-$conn->close();
 ?>
-
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin Dashboard</title>
+    <title>Dashboard</title>
 
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
 
-    <!-- Custom CSS for styling -->
-    <style>
-        body {
-            background-color: #f8f9fa;
-        }
-
-        .container {
-            margin-top: 50px;
-        }
-
-        .card {
-            margin-bottom: 20px;
-        }
-    </style>
 </head>
 
 <body>
-    <!-- Navbar -->
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-        <div class="container-fluid">
-            <a class="navbar-brand" href="#">Your Brand</a>
-            <!-- Add navigation links as needed -->
-        </div>
-    </nav>
+    <?php
+    include("nav.php")
+    ?>
 
-    <div class="container">
-        <h2 class="mb-4">Admin Dashboard</h2>
+    <div class="container mt-5">
 
-        <!-- Admin functionality goes here -->
+        <h2 class="mb-4">Menu</h2>
 
-        <div class="card">
-            <div class="card-body">
-                <h4 class="card-title">Admin Options</h4>
-                <ul>
-                    <li><a href="#">Option 1</a></li>
-                    <li><a href="#">Option 2</a></li>
-                    <!-- Add more admin options as needed -->
+        <!-- Navigation Menu -->
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-4">
+            <div class="container-fluid">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link" href="?page=user-management">User Section</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="?page=category-management">Category Section</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="?page=product-management">Product Section</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="?page=order-management">Order Section</a>
+                    </li>
                 </ul>
             </div>
-        </div>
-    </div>
 
-    <!-- Bootstrap JS (Optional) -->
-    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+        </nav>
+
+        <!-- Your CRUD content goes here -->
+
+    </div>
+    <?php
+    // Check if a page parameter is set in the URL
+    if (isset($_GET['page'])) {
+        $page = $_GET['page'];
+
+        // Validate and include the selected page
+        if (in_array($page, ['user-management', 'category-management', 'product-management', 'order-management']) && file_exists($page . '.php')) {
+            include($page . '.php');
+        } else {
+            echo '<p class="alert alert-danger">Invalid page selected.</p>';
+        }
+    } else {
+        // Default page to include when no specific page is selected
+        include('user-management.php');
+    }
+    ?>
+
+    <?php
+    include("footer.php")
+    ?>
+
 </body>
 
 </html>

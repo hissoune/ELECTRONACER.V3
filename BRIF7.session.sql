@@ -13,6 +13,7 @@ CREATE TABLE Users (
     full_name VARCHAR(255) NOT NULL,
     phone_number VARCHAR(15),
     address VARCHAR(255),
+    disabled BOOLEAN DEFAULT FALSE NOT NULL,
     city VARCHAR(100)
 );
 -- Table for product categories
@@ -41,6 +42,93 @@ CREATE TABLE Products (
     hidden BOOLEAN DEFAULT FALSE NOT NULL,
     FOREIGN KEY (category_id) REFERENCES Categories(category_id)
 );
+-- Table for orders
+CREATE TABLE Orders (
+    order_id INT PRIMARY KEY AUTO_INCREMENT,
+    user_id INT,
+    order_date DATETIME DEFAULT CURRENT_TIMESTAMP,
+    send_date DATETIME,
+    delivery_date DATETIME,
+    total_price DECIMAL(10, 2),
+    order_status ENUM('Pending', 'Validated', 'Cancelled') DEFAULT 'Pending',
+    FOREIGN KEY (user_id) REFERENCES Users(user_id)
+);
+-- Table for order details (products in an order)
+CREATE TABLE OrderDetails (
+    order_detail_id INT PRIMARY KEY AUTO_INCREMENT,
+    user_id INT,
+    order_id INT,
+    product_id INT,
+    quantity INT,
+    unit_price DECIMAL(10, 2),
+    total_price DECIMAL(10, 2),
+    FOREIGN KEY (order_id) REFERENCES Orders(order_id),
+    FOREIGN KEY (product_id) REFERENCES Products(product_id),
+    FOREIGN KEY (user_id) REFERENCES Users(user_id)
+);
+-- Table for client states (assuming admin can manage client states)
+CREATE TABLE UserStates (
+    client_state_id INT PRIMARY KEY AUTO_INCREMENT,
+    user_id INT,
+    state ENUM('Validated', 'Cancelled', 'Other'),
+    FOREIGN KEY (user_id) REFERENCES Users(user_id)
+);
+-- Table for order states (assuming admin can manage order states)
+CREATE TABLE OrderStates (
+    order_state_id INT PRIMARY KEY AUTO_INCREMENT,
+    order_id INT,
+    state ENUM('Validated', 'Cancelled', 'Other'),
+    FOREIGN KEY (order_id) REFERENCES Orders(order_id)
+);
+-- Add your sample data for users
+INSERT INTO Users (
+        username,
+        email,
+        password,
+        role,
+        verified,
+        full_name,
+        phone_number,
+        address,
+        disabled,
+        city
+    )
+VALUES (
+        'Admin',
+        'admin@test.com',
+        'admin123',
+        'admin',
+        TRUE,
+        'Admin User',
+        '123456789',
+        'Admin Address',
+        0,
+        'Admin City'
+    ),
+    (
+        'User',
+        'user@test.com',
+        'user123',
+        'user',
+        TRUE,
+        'Regular User',
+        '987654321',
+        'User Address',
+        0,
+        'User City'
+    ),
+    (
+        'User1',
+        'user1@test.com',
+        'user123',
+        'user',
+        FALSE,
+        'User1 User',
+        '111222333',
+        'User1 Address',
+        0,
+        'User1 City'
+    );
 -- Insert 30 product demo records
 INSERT INTO Products (
         reference,
@@ -57,7 +145,7 @@ INSERT INTO Products (
     )
 VALUES(
         'REF001',
-        'image1.jpg',
+        'img/image.png',
         '123456789001',
         'Product 1',
         10.99,
@@ -65,12 +153,12 @@ VALUES(
         '2.00',
         'Product 1 description',
         5,
-        100,
+        1,
         1
     ),
     (
         'REF002',
-        'image2.jpg',
+        'img/image.png',
         '123456789002',
         'Product 2',
         12.99,
@@ -83,7 +171,7 @@ VALUES(
     ),
     (
         'REF003',
-        'image3.jpg',
+        'img/image.png',
         '123456789003',
         'Product 3',
         8.99,
@@ -97,7 +185,7 @@ VALUES(
     -- Add more records as needed
     (
         'REF004',
-        'image4.jpg',
+        'img/image.png',
         '123456789004',
         'Product 4',
         14.99,
@@ -110,7 +198,7 @@ VALUES(
     ),
     (
         'REF005',
-        'image5.jpg',
+        'img/image.png',
         '123456789005',
         'Product 5',
         9.99,
@@ -123,7 +211,7 @@ VALUES(
     ),
     (
         'REF006',
-        'image6.jpg',
+        'img/image.png',
         '123456789006',
         'Product 6',
         11.99,
@@ -136,7 +224,7 @@ VALUES(
     ),
     (
         'REF007',
-        'image7.jpg',
+        'img/image.png',
         '123456789007',
         'Product 7',
         16.99,
@@ -149,7 +237,7 @@ VALUES(
     ),
     (
         'REF008',
-        'image8.jpg',
+        'img/image.png',
         '123456789008',
         'Product 8',
         13.99,
@@ -162,7 +250,7 @@ VALUES(
     ),
     (
         'REF009',
-        'image9.jpg',
+        'img/image.png',
         '123456789009',
         'Product 9',
         15.99,
@@ -175,7 +263,7 @@ VALUES(
     ),
     (
         'REF010',
-        'image10.jpg',
+        'img/image.png',
         '123456789010',
         'Product 10',
         18.99,
@@ -189,7 +277,7 @@ VALUES(
     -- Continue adding more records
     (
         'REF011',
-        'image11.jpg',
+        'img/image.png',
         '123456789011',
         'Product 11',
         20.99,
@@ -202,7 +290,7 @@ VALUES(
     ),
     (
         'REF012',
-        'image12.jpg',
+        'img/image.png',
         '123456789012',
         'Product 12',
         9.99,
@@ -215,7 +303,7 @@ VALUES(
     ),
     (
         'REF013',
-        'image13.jpg',
+        'img/image.png',
         '123456789013',
         'Product 13',
         11.99,
@@ -228,7 +316,7 @@ VALUES(
     ),
     (
         'REF014',
-        'image14.jpg',
+        'img/image.png',
         '123456789014',
         'Product 14',
         14.99,
@@ -242,7 +330,7 @@ VALUES(
     -- Add more records as needed
     (
         'REF015',
-        'image15.jpg',
+        'img/image.png',
         '123456789015',
         'Product 15',
         16.99,
@@ -255,7 +343,7 @@ VALUES(
     ),
     (
         'REF016',
-        'image16.jpg',
+        'img/image.png',
         '123456789016',
         'Product 16',
         13.99,
@@ -268,7 +356,7 @@ VALUES(
     ),
     (
         'REF017',
-        'image17.jpg',
+        'img/image.png',
         '123456789017',
         'Product 17',
         12.99,
@@ -281,7 +369,7 @@ VALUES(
     ),
     (
         'REF018',
-        'image18.jpg',
+        'img/image.png',
         '123456789018',
         'Product 18',
         10.99,
@@ -294,7 +382,7 @@ VALUES(
     ),
     (
         'REF019',
-        'image19.jpg',
+        'img/image.png',
         '123456789019',
         'Product 19',
         17.99,
@@ -307,7 +395,7 @@ VALUES(
     ),
     (
         'REF020',
-        'image20.jpg',
+        'img/image.png',
         '123456789020',
         'Product 20',
         15.99,
@@ -321,7 +409,7 @@ VALUES(
     -- Continue adding more records
     (
         'REF021',
-        'image21.jpg',
+        'img/image.png',
         '123456789021',
         'Product 21',
         11.99,
@@ -334,7 +422,7 @@ VALUES(
     ),
     (
         'REF022',
-        'image22.jpg',
+        'img/image.png',
         '123456789022',
         'Product 22',
         14.99,
@@ -347,7 +435,7 @@ VALUES(
     ),
     (
         'REF023',
-        'image23.jpg',
+        'img/image.png',
         '123456789023',
         'Product 23',
         16.99,
@@ -360,7 +448,7 @@ VALUES(
     ),
     (
         'REF024',
-        'image24.jpg',
+        'img/image.png',
         '123456789024',
         'Product 24',
         13.99,
@@ -374,7 +462,7 @@ VALUES(
     -- Add more records as needed
     (
         'REF025',
-        'image25.jpg',
+        'img/image.png',
         '123456789025',
         'Product 25',
         12.99,
@@ -387,7 +475,7 @@ VALUES(
     ),
     (
         'REF026',
-        'image26.jpg',
+        'img/image.png',
         '123456789026',
         'Product 26',
         9.99,
@@ -400,7 +488,7 @@ VALUES(
     ),
     (
         'REF027',
-        'image27.jpg',
+        'img/image.png',
         '123456789027',
         'Product 27',
         17.99,
@@ -413,7 +501,7 @@ VALUES(
     ),
     (
         'REF028',
-        'image28.jpg',
+        'img/image.png',
         '123456789028',
         'Product 28',
         15.99,
@@ -426,7 +514,7 @@ VALUES(
     ),
     (
         'REF029',
-        'image29.jpg',
+        'img/image.png',
         '123456789029',
         'Product 29',
         20.99,
@@ -439,7 +527,7 @@ VALUES(
     ),
     (
         'REF030',
-        'image30.jpg',
+        'img/image.png',
         '123456789030',
         'Product 30',
         18.99,
@@ -449,91 +537,4 @@ VALUES(
         2,
         40,
         2
-    );
--- Table for orders
-CREATE TABLE Orders (
-    order_id INT PRIMARY KEY AUTO_INCREMENT,
-    user_id INT,
-    order_date DATETIME DEFAULT CURRENT_TIMESTAMP,
-    send_date DATETIME,
-    delivery_date DATETIME,
-    total_price DECIMAL(10, 2),
-    order_status ENUM('Pending', 'Validated', 'Cancelled') DEFAULT 'Pending',
-    FOREIGN KEY (user_id) REFERENCES Users(user_id)
-);
--- Table for order details (products in an order)
-CREATE TABLE OrderDetails (
-    order_detail_id INT PRIMARY KEY AUTO_INCREMENT,
-    order_id INT,
-    product_id INT,
-    quantity INT,
-    unit_price DECIMAL(10, 2),
-    total_price DECIMAL(10, 2),
-    FOREIGN KEY (order_id) REFERENCES Orders(order_id),
-    FOREIGN KEY (product_id) REFERENCES Products(product_id)
-);
--- Table for client states (assuming admin can manage client states)
-CREATE TABLE ClientStates (
-    client_state_id INT PRIMARY KEY AUTO_INCREMENT,
-    user_id INT,
-    state ENUM('Validated', 'Cancelled', 'Other'),
-    FOREIGN KEY (user_id) REFERENCES Users(user_id)
-);
--- Table for order states (assuming admin can manage order states)
-CREATE TABLE OrderStates (
-    order_state_id INT PRIMARY KEY AUTO_INCREMENT,
-    order_id INT,
-    state ENUM('Validated', 'Cancelled', 'Other'),
-    FOREIGN KEY (order_id) REFERENCES Orders(order_id)
-);
--- Table for product popularity
-CREATE TABLE ProductPopularity (
-    product_id INT PRIMARY KEY,
-    popularity_count INT DEFAULT 0,
-    FOREIGN KEY (product_id) REFERENCES Products(product_id)
-);
--- Add your sample data for users
-INSERT INTO Users (
-        username,
-        email,
-        password,
-        role,
-        verified,
-        full_name,
-        phone_number,
-        address,
-        city
-    )
-VALUES (
-        'Admin',
-        'admin@test.com',
-        'admin123',
-        'admin',
-        TRUE,
-        'Admin User',
-        '123456789',
-        'Admin Address',
-        'Admin City'
-    ),
-    (
-        'User',
-        'user@test.com',
-        'user123',
-        'user',
-        TRUE,
-        'Regular User',
-        '987654321',
-        'User Address',
-        'User City'
-    ),
-    (
-        'User1',
-        'user1@test.com',
-        'user123',
-        'user',
-        FALSE,
-        'Inactive User',
-        '111222333',
-        'Inactive Address',
-        'Inactive City'
     );

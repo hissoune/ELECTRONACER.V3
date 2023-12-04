@@ -6,7 +6,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $email = $_POST["email"];
     $password = $_POST["password"];
 
-    $sql = "SELECT * FROM Users WHERE email = '$email' AND password = '$password'";
+    $sql = "SELECT * FROM Users WHERE email = '$email' AND password = '$password' AND disabled = 0";
     $result = $conn->query($sql);
 
     if ($result->num_rows > 0) {
@@ -29,7 +29,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             exit();
         }
     } else {
-        $error_message = "Invalid email or password";
+        $error_message = "Invalid login credentials or account disabled";
     }
 }
 
@@ -108,9 +108,6 @@ h3 {
         </div>
     </section>
     <!--Write your code here -->
-    <!-- Bootstrap JS and dependencies -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous">
-    </script>
-</body>
-
-</html>
+    <?php
+    include("footer.php")
+    ?>
