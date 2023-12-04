@@ -12,71 +12,69 @@
     </head>
 
     <body>
-    <form method="post" action="" enctype="multipart/form-data">
+    <form method="post" action="" enctype="multipart/form-data" class="container mt-5">
     <!-- Nom du produit -->
-    <div class="input-group mb-3 mt-5">
-        <span class="input-group-text" id="basic-addon1">reference</span>
+    <div class="input-group mb-3">
+        <span class="input-group-text" id="basic-addon1">Reference</span>
         <input type="text" class="form-control" placeholder="Nom du produit" name="label"
             aria-label="Nom du produit" aria-describedby="basic-addon1" required>
     </div>
 
     <!-- Description du produit -->
     <div class="input-group mb-3">
-        <input class="form-control" placeholder="Description du produit" name="description"
-            aria-label="Description du produit" required></input>
+        <textarea class="form-control" placeholder="Description du produit" name="description"
+            aria-label="Description du produit" required></textarea>
     </div>
 
     <!-- Prix du produit -->
     <div class="input-group mb-3">
-        <span class="input-group-text">purchase_price $</span>
+        <span class="input-group-text">Purchase Price $</span>
+        <input type="text" class="form-control" placeholder="Prix du produit" name="purchase_price"
+            aria-label="Prix du produit" required>
+        <span class="input-group-text">.99</span>
+    </div>
+    <div class="input-group mb-3">
+        <span class="input-group-text">Final Price $</span>
         <input type="text" class="form-control" placeholder="Prix du produit" name="final_price"
             aria-label="Prix du produit" required>
         <span class="input-group-text">.99</span>
     </div>
     <div class="input-group mb-3">
-        <span class="input-group-text"> final_price  $</span>
-        <input type="text" class="form-control" placeholder="Prix du produit" name="final_price"
+        <span class="input-group-text">Price Offer $</span>
+        <input type="text" class="form-control" placeholder="Prix du produit" name="price_offer"
             aria-label="Prix du produit" required>
         <span class="input-group-text">.99</span>
     </div>
     <div class="input-group mb-3">
-        <span class="input-group-text"> price_offer $</span>
-        <input type="text" class="form-control" placeholder="Prix du produit" name="final_price"
+        <span class="input-group-text">Min Quantity</span>
+        <input type="text" class="form-control" placeholder="Prix du produit" name="min_quantity"
             aria-label="Prix du produit" required>
-        <span class="input-group-text">.99</span>
     </div>
     <div class="input-group mb-3">
-        <span class="input-group-text"> min_quantity</span>
-        <input type="text" class="form-control" placeholder="Prix du produit" name="final_price"
+        <span class="input-group-text">Stock Quantity</span>
+        <input type="text" class="form-control" placeholder="Prix du produit" name="stock_quantity"
             aria-label="Prix du produit" required>
-        <span class="input-group-text"></span>
-    </div>
-    <div class="input-group mb-3">
-        <span class="input-group-text"> stock_quantity</span>
-        <input type="text" class="form-control" placeholder="Prix du produit" name="final_price"
-            aria-label="Prix du produit" required>
-        <span class="input-group-text"></span>
     </div>
 
     <!-- Image du produit -->
-    <div class="mb-5 mt-5">
+    <div class="mb-3 mt-3">
         <label for="product_image" class="form-label">Image du produit</label>
-        <div class="input-group mb-5">
-            <input type="file" class="form-control mb-5" name="image" id="product_image"
-                aria-describedby="basic-addon3 basic-addon4" required> 
+        <div class="input-group">
+            <input type="file" class="form-control" name="image" id="product_image" required> 
         </div>
-        <div class="form-text" id="basic-addon4">Téléchargez une image du produit.</div>
+        <div class="form-text mt-2">Téléchargez une image du produit.</div>
     </div>
 
     <!-- Bouton pour soumettre le formulaire -->
-    <div class="grid center">
-        <button type="submit" class="btn btn-primary" name="submit">Ajouter un produit</button>
+    <div class="d-grid mt-3">
+        <button type="submit" class="btn btn-primary btn-sm w-4" name="submit">Ajouter un produit</button>
     </div>
 </form>
+
 <br><br><br>
 
         <?php 
-    // Your PHP code for handling form submission and database insertion goes here
+    
     ?>
 <?php
 require 'db_cnx.php';
@@ -100,7 +98,7 @@ echo "<table class='table table-bordered table-striped'>
             <th>Min Quantity</th>
             <th>Stock Quantity</th>
             <th>Hidden</th>
-            <th>Delete Image</th>
+            <th>Hidden Image</th>
         </tr>
     </thead>
     <tbody>";
