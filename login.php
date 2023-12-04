@@ -49,6 +49,32 @@ $conn->close();
     <!-- fontawesome CSS -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha256-hk1J8HZqEW/p7zC0xjYYr4EhGtYszmJdz21pKBC7ROU=" crossorigin="anonymous" />
 </head>
+<style>
+
+body{
+    /* background-image: url(./img/pic3.jpg); */
+            background: linear-gradient(90deg, rgba(30, 0, 0) 0%, rgba(9,9,121,1) 50%, rgba(30,0,0) 100%);
+  background-size: cover;
+}
+h3 {
+    color: #D4D4D4;
+    font-size: 8rem;
+    font-family: "Times New Roman", Times, serif;
+}
+.dir{
+  position: relative;
+  animation: mymove 1s;
+  animation-fill-mode: forwards;
+}
+#div1 {animation-timing-function: linear;}
+#div2 {animation-timing-function: ease;}
+#div3 {animation-timing-function: ease-in-out;}
+@keyframes mymove {
+  from {left: -500px;}
+  to {left: 0px;}
+
+}
+</style>
 
 <body>
     <!--Write your code here -->
@@ -56,7 +82,7 @@ $conn->close();
         <div class="container">
             <div class="row">
                 <div class="col-md-6 offset-md-3 mt-5">
-                    <h3 class="text-center mb-4">Login</h3>
+                    <h3 class="text-center mb-4" style="margin-top: 10%;">Login</h3>
 
                     <?php
                     if (isset($error_message)) {
@@ -65,18 +91,18 @@ $conn->close();
                     ?>
 
                     <form method="post">
-                        <div class="mb-3">
-                            <label for="email" class="form-label">Email address</label>
+                        <div id="div1" class="dir" style="margin-top: 10%;" >
+                            <label style="color: #D4D4D4;" for="email" class="form-label">Email address</label>
                             <input type="email" class="form-control" id="email" name="email" required>
                         </div>
-                        <div class="mb-3">
-                            <label for="password" class="form-label">Password</label>
+                        <div id="div2" class="dir mb-3" style="margin-top: 5%;">
+                            <label for="password" class="form-label" style="color: #D4D4D4;">Password</label>
                             <input type="password" class="form-control" id="password" name="password" required>
                         </div>
-                        <button type="submit" class="btn btn-primary">Login</button>
+                        <button style="margin-top: 5%;" id="div3" type="submit" class="btn btn-primary dir">Login</button>
                     </form>
 
-                    <p class="mt-3">Don't have an account? <a href="?page=register">Register here</a></p>
+                    <p class="mt-3" style="color: #D4D4D4;">Don't have an account? <a href="?page=register">Register here</a></p>
                 </div>
             </div>
         </div>
