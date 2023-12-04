@@ -56,13 +56,15 @@ CREATE TABLE Orders (
 -- Table for order details (products in an order)
 CREATE TABLE OrderDetails (
     order_detail_id INT PRIMARY KEY AUTO_INCREMENT,
+    user_id INT,
     order_id INT,
     product_id INT,
     quantity INT,
     unit_price DECIMAL(10, 2),
     total_price DECIMAL(10, 2),
     FOREIGN KEY (order_id) REFERENCES Orders(order_id),
-    FOREIGN KEY (product_id) REFERENCES Products(product_id)
+    FOREIGN KEY (product_id) REFERENCES Products(product_id),
+    FOREIGN KEY (user_id) REFERENCES Users(user_id)
 );
 -- Table for client states (assuming admin can manage client states)
 CREATE TABLE UserStates (
@@ -151,7 +153,7 @@ VALUES(
         '2.00',
         'Product 1 description',
         5,
-        100,
+        1,
         1
     ),
     (
