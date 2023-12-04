@@ -63,7 +63,7 @@ $productQuery .= " LIMIT $startIndex, $productsPerPage";
 // Execute product query
 $productResult = mysqli_query($conn, $productQuery);
 ?>
-
+ 
 <!DOCTYPE html>
 <html lang="en">
 
