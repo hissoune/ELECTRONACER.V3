@@ -19,12 +19,14 @@ CREATE TABLE Users (
 -- Table for product categories
 CREATE TABLE Categories (
     category_id INT PRIMARY KEY AUTO_INCREMENT,
-    category_name VARCHAR(255) NOT NULL
+    category_name VARCHAR(255) NOT NULL,
+    imag_category varchar(255) NOT NULL,
+    is_desaybelsd BOOLEAN DEFAULT FALSE NOT NULL
 );
-INSERT INTO Categories (category_name)
-VALUES ('Category 1'),
-    ('Category 2'),
-    ('Category 3');
+INSERT INTO Categories (category_name,imag_category,is_desaybelsd)
+VALUES ('Category 1','image.png',FALSE),
+    ('Category 2','image.png',FALSE),
+    ('Category 3','image.png',FALSE);
 -- Table for products
 CREATE TABLE Products (
     product_id INT PRIMARY KEY AUTO_INCREMENT,
