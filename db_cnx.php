@@ -1,7 +1,7 @@
 <?php // Replace these with your actual database credentials
 $servername = 'localhost';
 $user = 'root';
-$pass = '';
+$pass = '123';
 $dbname = 'electronacerv3';
 
 // Create connection

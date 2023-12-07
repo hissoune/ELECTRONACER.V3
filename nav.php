@@ -1,11 +1,21 @@
 <?php
-
 include('db_cnx.php');
 
 // Check if the user is logged in
 if (!isset($_SESSION["user"])) {
     // Redirect to the login page if not logged in
     header("Location: login.php");
+    exit();
+}
+
+if (isset($_GET['action']) && $_GET['action'] == 'clear') {
+    // Clear the cart
+    unset($_SESSION['cart']);
+    // Debug statement
+    echo "Cart cleared. Redirecting...";
+    // Add a delay to see if the debug statement is printed
+    sleep(2);
+    header("Location: cart.php"); // Redirect back to the cart page
     exit();
 }
 
@@ -77,13 +87,13 @@ $cartItemCount = count($cartItems);
     </div>
 </nav>
 
+
 <!-- Cart Modal -->
 <div class="modal fade" id="cartModal" tabindex="-1" role="dialog" aria-labelledby="cartModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="cartModalLabel">Shopping Cart</h5>
-
             </div>
             <div class="modal-body">
                 <?php if ($cartItemCount > 0) { ?>

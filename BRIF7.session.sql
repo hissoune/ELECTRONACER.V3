@@ -39,7 +39,7 @@ CREATE TABLE Products (
     min_quantity INT NOT NULL,
     stock_quantity INT NOT NULL,
     category_id INT,
-    hidden BOOLEAN DEFAULT FALSE NOT NULL,
+    disabled BOOLEAN DEFAULT FALSE NOT NULL,
     FOREIGN KEY (category_id) REFERENCES Categories(category_id)
 );
 -- Table for orders
@@ -145,7 +145,7 @@ INSERT INTO Products (
     )
 VALUES(
         'REF001',
-        'img/image.png',
+        'image.png',
         '123456789001',
         'Product 1',
         10.99,
@@ -158,7 +158,7 @@ VALUES(
     ),
     (
         'REF002',
-        'img/image.png',
+        'image.png',
         '123456789002',
         'Product 2',
         12.99,
@@ -171,7 +171,7 @@ VALUES(
     ),
     (
         'REF003',
-        'img/image.png',
+        'image.png',
         '123456789003',
         'Product 3',
         8.99,
@@ -185,7 +185,7 @@ VALUES(
     -- Add more records as needed
     (
         'REF004',
-        'img/image.png',
+        'image.png',
         '123456789004',
         'Product 4',
         14.99,
@@ -198,7 +198,7 @@ VALUES(
     ),
     (
         'REF005',
-        'img/image.png',
+        'image.png',
         '123456789005',
         'Product 5',
         9.99,
@@ -211,7 +211,7 @@ VALUES(
     ),
     (
         'REF006',
-        'img/image.png',
+        'image.png',
         '123456789006',
         'Product 6',
         11.99,
@@ -224,7 +224,7 @@ VALUES(
     ),
     (
         'REF007',
-        'img/image.png',
+        'image.png',
         '123456789007',
         'Product 7',
         16.99,
@@ -237,7 +237,7 @@ VALUES(
     ),
     (
         'REF008',
-        'img/image.png',
+        'image.png',
         '123456789008',
         'Product 8',
         13.99,
@@ -250,7 +250,7 @@ VALUES(
     ),
     (
         'REF009',
-        'img/image.png',
+        'image.png',
         '123456789009',
         'Product 9',
         15.99,
@@ -263,7 +263,7 @@ VALUES(
     ),
     (
         'REF010',
-        'img/image.png',
+        'image.png',
         '123456789010',
         'Product 10',
         18.99,
@@ -277,7 +277,7 @@ VALUES(
     -- Continue adding more records
     (
         'REF011',
-        'img/image.png',
+        'image.png',
         '123456789011',
         'Product 11',
         20.99,
@@ -290,7 +290,7 @@ VALUES(
     ),
     (
         'REF012',
-        'img/image.png',
+        'image.png',
         '123456789012',
         'Product 12',
         9.99,
@@ -303,7 +303,7 @@ VALUES(
     ),
     (
         'REF013',
-        'img/image.png',
+        'image.png',
         '123456789013',
         'Product 13',
         11.99,
@@ -316,7 +316,7 @@ VALUES(
     ),
     (
         'REF014',
-        'img/image.png',
+        'image.png',
         '123456789014',
         'Product 14',
         14.99,
@@ -330,7 +330,7 @@ VALUES(
     -- Add more records as needed
     (
         'REF015',
-        'img/image.png',
+        'image.png',
         '123456789015',
         'Product 15',
         16.99,
@@ -343,7 +343,7 @@ VALUES(
     ),
     (
         'REF016',
-        'img/image.png',
+        'image.png',
         '123456789016',
         'Product 16',
         13.99,
@@ -356,7 +356,7 @@ VALUES(
     ),
     (
         'REF017',
-        'img/image.png',
+        'image.png',
         '123456789017',
         'Product 17',
         12.99,
@@ -369,7 +369,7 @@ VALUES(
     ),
     (
         'REF018',
-        'img/image.png',
+        'image.png',
         '123456789018',
         'Product 18',
         10.99,
@@ -382,7 +382,7 @@ VALUES(
     ),
     (
         'REF019',
-        'img/image.png',
+        'image.png',
         '123456789019',
         'Product 19',
         17.99,
@@ -395,7 +395,7 @@ VALUES(
     ),
     (
         'REF020',
-        'img/image.png',
+        'image.png',
         '123456789020',
         'Product 20',
         15.99,
@@ -409,7 +409,7 @@ VALUES(
     -- Continue adding more records
     (
         'REF021',
-        'img/image.png',
+        'image.png',
         '123456789021',
         'Product 21',
         11.99,
@@ -422,7 +422,7 @@ VALUES(
     ),
     (
         'REF022',
-        'img/image.png',
+        'image.png',
         '123456789022',
         'Product 22',
         14.99,
@@ -435,7 +435,7 @@ VALUES(
     ),
     (
         'REF023',
-        'img/image.png',
+        'image.png',
         '123456789023',
         'Product 23',
         16.99,
@@ -448,7 +448,7 @@ VALUES(
     ),
     (
         'REF024',
-        'img/image.png',
+        'image.png',
         '123456789024',
         'Product 24',
         13.99,
@@ -462,7 +462,7 @@ VALUES(
     -- Add more records as needed
     (
         'REF025',
-        'img/image.png',
+        'image.png',
         '123456789025',
         'Product 25',
         12.99,
@@ -475,7 +475,7 @@ VALUES(
     ),
     (
         'REF026',
-        'img/image.png',
+        'image.png',
         '123456789026',
         'Product 26',
         9.99,
@@ -488,7 +488,7 @@ VALUES(
     ),
     (
         'REF027',
-        'img/image.png',
+        'image.png',
         '123456789027',
         'Product 27',
         17.99,
@@ -501,7 +501,7 @@ VALUES(
     ),
     (
         'REF028',
-        'img/image.png',
+        'image.png',
         '123456789028',
         'Product 28',
         15.99,
@@ -514,7 +514,7 @@ VALUES(
     ),
     (
         'REF029',
-        'img/image.png',
+        'image.png',
         '123456789029',
         'Product 29',
         20.99,
@@ -527,7 +527,7 @@ VALUES(
     ),
     (
         'REF030',
-        'img/image.png',
+        'image.png',
         '123456789030',
         'Product 30',
         18.99,

@@ -27,27 +27,6 @@ function toggleDisableStatus($conn, $userId)
     $conn->query("UPDATE Users SET disabled = NOT disabled WHERE user_id = $userId");
 }
 
-// Handle form submission for user add
-if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["new_username"]) && isset($_POST["new_email"])) {
-    // Get user input from the form
-    $newUsername = $_POST["new_username"];
-    $newEmail = $_POST["new_email"];
-
-
-    // Insert the new user into the database
-    $insertUserSql = "INSERT INTO Users (username, email, role) VALUES ('$newUsername', '$newEmail', 'user')";
-    if ($conn->query($insertUserSql) === TRUE) {
-        // Redirect to the same page to avoid resubmission on refresh
-        header("Location: admin-dashboard.php?page=user-management");
-        exit();
-    } else {
-        echo "Error: " . $conn->error;
-        // Redirect to the same page to avoid resubmission on refresh
-        header("Location: admin-dashboard.php?page=user-management");
-        exit();
-    }
-}
-
 
 // Fetch users from the database
 $userSql = "SELECT * FROM Users";
