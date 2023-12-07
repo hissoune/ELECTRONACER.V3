@@ -17,10 +17,11 @@ $categoryQuery = "SELECT * FROM Categories";
 $categoryResult = mysqli_query($conn, $categoryQuery);
 $categories = mysqli_fetch_all($categoryResult, MYSQLI_ASSOC);
 
-// Initialize category, minPrice, and maxPrice filters
+// Initialize category, minPrice, maxPrice, and search filters
 $categoryFilter = isset($_GET['categoryFilter']) ? $_GET['categoryFilter'] : '';
 $minPriceFilter = isset($_GET['minPrice']) ? $_GET['minPrice'] : '';
 $maxPriceFilter = isset($_GET['maxPrice']) ? $_GET['maxPrice'] : '';
+$searchFilter = isset($_GET['search']) ? $_GET['search'] : '';
 
 // get the current page from the URL
 $page = isset($_GET['page']) ? intval($_GET['page']) : 1;
@@ -31,7 +32,40 @@ $productsPerPage = 6;
 $startIndex = ($page - 1) * $productsPerPage;
 
 // Fetch total number of products without limit for pagination
-$totalProductsQuery = "SELECT COUNT(*) as total FROM Products";
+$totalProductsQuery = "SELECT COUNT(*) as total FROM Products WHERE disabled = FALSE";
+
+// Fetch products with filters
+$productQuery =  "SELECT * FROM Products WHERE disabled = FALSE";
+// Check if the "Low on Stock" filter is applied
+$lowOnStockFilter = isset($_GET['lowOnStock']) ? true : false;
+// Apply category filter
+if ($categoryFilter != '') {
+    $productQuery .= " AND category_id = '" . mysqli_real_escape_string($conn, $categoryFilter) . "'";
+}
+
+// Apply price filters
+if ($minPriceFilter != '') {
+    $productQuery .= " AND final_price >= '" . mysqli_real_escape_string($conn, $minPriceFilter) . "'";
+}
+
+if ($maxPriceFilter != '') {
+    $productQuery .= " AND final_price <= '" . mysqli_real_escape_string($conn, $maxPriceFilter) . "'";
+}
+
+// Apply search filter
+if ($searchFilter != '') {
+    $productQuery .= " AND (label LIKE '%" . mysqli_real_escape_string($conn, $searchFilter) . "%' OR description LIKE '%" . mysqli_real_escape_string($conn, $searchFilter) . "%')";
+}
+
+if ($lowOnStockFilter) {
+    if ($categoryFilter != '') {
+        $productQuery .= " AND category_id = '" . mysqli_real_escape_string($conn, $categoryFilter) . "' AND stock_quantity <= 10";
+    } else {
+        $productQuery .= " AND stock_quantity <= 10";
+    }
+}
+
+// Fetch total number of products
 $totalProductsResult = mysqli_query($conn, $totalProductsQuery);
 $totalProductsRow = mysqli_fetch_assoc($totalProductsResult);
 $numProducts = $totalProductsRow['total'];
@@ -39,31 +73,13 @@ $numProducts = $totalProductsRow['total'];
 // Calculate the total number of pages
 $totalPages = ceil($numProducts / $productsPerPage);
 
-
-// Fetch products with filters
-$productQuery = "SELECT * FROM Products";
-
-// Apply category filter
-if ($categoryFilter != '') {
-    $productQuery .= " WHERE category_id = '$categoryFilter'";
-}
-
-// Apply price filters
-if ($minPriceFilter != '') {
-    $productQuery .= " AND final_price >= '$minPriceFilter'";
-}
-
-if ($maxPriceFilter != '') {
-    $productQuery .= " AND final_price <= '$maxPriceFilter'";
-}
-
 // Add the limit clause to the query
 $productQuery .= " LIMIT $startIndex, $productsPerPage";
 
-// Execute product query
+// Fetch products
 $productResult = mysqli_query($conn, $productQuery);
 ?>
- 
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -109,36 +125,46 @@ $productResult = mysqli_query($conn, $productQuery);
                 </div>
             </div>
 
+            <div class="row mb-3">
+                <div class="col-md-4">
+                    <label for="search" class="form-label">Search:</label>
+                    <input type="text" name="search" id="search" class="form-control"
+                        value="<?php echo $searchFilter; ?>">
+                </div>
+            </div>
+
             <div class="mb-3">
                 <button type="submit" class="btn btn-primary">Apply Filter</button>
-                <button type="submit" class="btn btn-warning ms-2" id="lowOnStock" name="lowOnStock" value="1">Low on
-                    Stock</button>
+                <button type="submit" class="btn btn-warning ms-2" name="lowOnStock" value="1">Low on Stock</button>
             </div>
         </form>
 
         <nav aria-label="Page navigation example">
             <ul class="pagination">
                 <li class="page-item <?php echo ($page == 1) ? 'disabled' : ''; ?>">
-                    <a class="page-link" href="?page=<?php echo ($page > 1) ? $page - 1 : 1; ?>">Previous</a>
+                    <a class="page-link"
+                        href="?page=<?php echo ($page > 1) ? $page - 1 : 1; ?><?php echo ($categoryFilter != '') ? '&categoryFilter=' . $categoryFilter : ''; ?><?php echo ($minPriceFilter != '') ? '&minPrice=' . $minPriceFilter : ''; ?><?php echo ($maxPriceFilter != '') ? '&maxPrice=' . $maxPriceFilter : ''; ?><?php echo ($lowOnStockFilter) ? '&lowOnStock=1' : ''; ?><?php echo ($searchFilter != '') ? '&search=' . $searchFilter : ''; ?>">Previous</a>
                 </li>
                 <?php for ($i = 1; $i <= $totalPages; $i++) : ?>
                 <li class="page-item <?php echo ($page == $i) ? 'active' : ''; ?>">
-                    <a class="page-link" href="?page=<?php echo $i; ?>"><?php echo $i; ?></a>
+                    <a class="page-link"
+                        href="?page=<?php echo $i; ?><?php echo ($categoryFilter != '') ? '&categoryFilter=' . $categoryFilter : ''; ?><?php echo ($minPriceFilter != '') ? '&minPrice=' . $minPriceFilter : ''; ?><?php echo ($maxPriceFilter != '') ? '&maxPrice=' . $maxPriceFilter : ''; ?><?php echo ($lowOnStockFilter) ? '&lowOnStock=1' : ''; ?><?php echo ($searchFilter != '') ? '&search=' . $searchFilter : ''; ?>"><?php echo $i; ?></a>
                 </li>
                 <?php endfor; ?>
                 <li class="page-item <?php echo ($page == $totalPages || $totalPages == 0) ? 'disabled' : ''; ?>">
                     <a class="page-link"
-                        href="?page=<?php echo ($page < $totalPages) ? $page + 1 : $totalPages; ?>">Next</a>
+                        href="?page=<?php echo ($page < $totalPages) ? $page + 1 : $totalPages; ?><?php echo ($categoryFilter != '') ? '&categoryFilter=' . $categoryFilter : ''; ?><?php echo ($minPriceFilter != '') ? '&minPrice=' . $minPriceFilter : ''; ?><?php echo ($maxPriceFilter != '') ? '&maxPrice=' . $maxPriceFilter : ''; ?><?php echo ($lowOnStockFilter) ? '&lowOnStock=1' : ''; ?><?php echo ($searchFilter != '') ? '&search=' . $searchFilter : ''; ?>">Next</a>
                 </li>
             </ul>
         </nav>
-        <div class="row" id="product-container">
+        <div class="row" id="products-container">
             <?php while ($row = mysqli_fetch_assoc($productResult)) : ?>
             <div class="col-md-4">
                 <div class="card">
                     <!-- Make the image clickable and link to the product detail page -->
                     <a href="product-details.php?id=<?php echo $row['product_id']; ?>">
-                        <img src="<?php echo $row['image']; ?>" class="card-img-top" alt="<?php echo $row['label']; ?>">
+                        <img src="./img/<?php echo $row['image']; ?>" class=" card-img-top"
+                            alt="<?php echo $row['label']; ?>">
                     </a>
                     <div class="card-body">
                         <h5 class="card-title"><?php echo $row['label']; ?></h5>
@@ -157,23 +183,39 @@ $productResult = mysqli_query($conn, $productQuery);
     </div>
     <script>
     $(document).ready(function() {
+        // Function to load content using AJAX
+        function loadContent(url) {
+            $.ajax({
+                type: 'GET',
+                url: url,
+                success: function(data) {
+                    $('#products-container').html(data);
+                }
+            });
+        }
         // Submit the filter form using AJAX
         $('#filterForm').submit(function(event) {
             event.preventDefault();
-
-            // Get the form data
             var formData = $(this).serialize();
+            loadContent('<?php echo $_SERVER['PHP_SELF']; ?>' + '?' + formData);
+        });
 
-            // Send the data using AJAX
-            $.ajax({
-                type: 'GET',
-                url: '<?php echo $_SERVER['PHP_SELF']; ?>',
-                data: formData,
-                success: function(data) {
-                    $('#product-container').html(data);
-                }
-            });
+        // Handle pagination clicks
+        $('.pagination a').on('click', function(event) {
+            event.preventDefault();
+            var page = $(this).attr('href').split('=')[1];
+            var url = '<?php echo $_SERVER['PHP_SELF']; ?>' + '?page=' + page +
+                '&categoryFilter=' + $('#categoryFilter').val() +
+                '&minPrice=' + $('#minPrice').val() +
+                '&maxPrice=' + $('#maxPrice').val() +
+                '&lowOnStock=' + ($('#lowOnStock').is(':checked') ? '1' : '') +
+                '&search=' + $('#search').val();
+
+            loadContent(url);
         });
     });
     </script>
     <?php include("footer.php"); ?>
+</body>
+
+</html>

@@ -12,6 +12,19 @@
       "name": "BRIF7",
       "database": "electronacerv3",
       "username": "root"
+    },
+    {
+      "mysqlOptions": {
+        "authProtocol": "default",
+        "enableSsl": "Disabled"
+      },
+      "previewLimit": 50,
+      "server": "localhost",
+      "port": 3306,
+      "driver": "MySQL",
+      "name": "workshop",
+      "database": "workshop",
+      "username": "root"
     }
   ]
 }
