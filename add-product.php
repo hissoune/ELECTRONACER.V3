@@ -54,9 +54,9 @@
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
         <title>Add Product</title>
         <style>
-        .card {
-            margin-bottom: 20px;
-        }
+            .card {
+                margin-bottom: 20px;
+            }
         </style>
     </head>
 
@@ -65,56 +65,47 @@
             <!-- Product Reference -->
             <div class="input-group mb-3">
                 <span class="input-group-text" id="basic-addon1">Reference</span>
-                <input type="text" class="form-control" placeholder="Reference" name="reference" aria-label="Reference"
-                    aria-describedby="basic-addon1" required>
+                <input type="text" class="form-control" placeholder="Reference" name="reference" aria-label="Reference" aria-describedby="basic-addon1" required>
             </div>
             <!-- Product Label -->
             <div class="input-group mb-3">
                 <span class="input-group-text" id="basic-addon1">Label</span>
-                <input type="text" class="form-control" placeholder="Product Name" name="product_name"
-                    aria-label="Product Name" aria-describedby="basic-addon1" required>
+                <input type="text" class="form-control" placeholder="Product Name" name="product_name" aria-label="Product Name" aria-describedby="basic-addon1" required>
             </div>
             <!-- Product description -->
             <div class="input-group mb-3">
                 <span class="input-group-text" id="basic-addon1">Description</span>
-                <input type="text" class="form-control" placeholder="Description" name="description"
-                    aria-label="Description" aria-describedby="basic-addon1" required>
+                <input type="text" class="form-control" placeholder="Description" name="description" aria-label="Description" aria-describedby="basic-addon1" required>
             </div>
             <!-- Product purchase_price -->
             <div class="input-group mb-3">
                 <span class="input-group-text" id="basic-addon1">Purchase Price</span>
-                <input type="text" class="form-control" placeholder="Purchase Price" name="purchase_price"
-                    aria-label="Purchase Price" aria-describedby="basic-addon1" required>
+                <input type="text" class="form-control" placeholder="Purchase Price" name="purchase_price" aria-label="Purchase Price" aria-describedby="basic-addon1" required>
             </div>
             <!-- Product purchase_price -->
             <div class="input-group mb-3">
                 <span class="input-group-text" id="basic-addon1">Barcode</span>
-                <input type="text" class="form-control" placeholder="Barcode" name="barcode" aria-label="Barcode"
-                    aria-describedby="basic-addon1" required>
+                <input type="text" class="form-control" placeholder="Barcode" name="barcode" aria-label="Barcode" aria-describedby="basic-addon1" required>
             </div>
             <!-- Product price_offer -->
             <div class="input-group mb-3">
                 <span class="input-group-text" id="basic-addon1">Price Offer</span>
-                <input type="text" class="form-control" placeholder="Price Offer" name="price_offer"
-                    aria-label="Price Offer" aria-describedby="basic-addon1" required>
+                <input type="text" class="form-control" placeholder="Price Offer" name="price_offer" aria-label="Price Offer" aria-describedby="basic-addon1" required>
             </div>
             <!-- Product final_price -->
             <div class="input-group mb-3">
                 <span class="input-group-text" id="basic-addon1">Final Price</span>
-                <input type="text" class="form-control" placeholder="Final Price" name="final_price"
-                    aria-label="Final Price" aria-describedby="basic-addon1" required>
+                <input type="text" class="form-control" placeholder="Final Price" name="final_price" aria-label="Final Price" aria-describedby="basic-addon1" required>
             </div>
             <!-- Product min_quantity -->
             <div class="input-group mb-3">
                 <span class="input-group-text" id="basic-addon1">Min Quantity</span>
-                <input type="text" class="form-control" placeholder="Min Quantity" name="min_quantity"
-                    aria-label="Min Quantity" aria-describedby="basic-addon1" required>
+                <input type="text" class="form-control" placeholder="Min Quantity" name="min_quantity" aria-label="Min Quantity" aria-describedby="basic-addon1" required>
             </div>
             <!-- Product stock_quantity -->
             <div class="input-group mb-3">
                 <span class="input-group-text" id="basic-addon1">Stock Quantity</span>
-                <input type="text" class="form-control" placeholder="Stock Quantity" name="stock_quantity"
-                    aria-label="Stock Quantity" aria-describedby="basic-addon1" required>
+                <input type="text" class="form-control" placeholder="Stock Quantity" name="stock_quantity" aria-label="Stock Quantity" aria-describedby="basic-addon1" required>
             </div>
             <!-- Image du produit -->
             <div class="mb-3 mt-3">
@@ -152,6 +143,3 @@
             </div>
         </form>
         <?php include("footer.php"); ?>
-    </body>
-
-    </html>
