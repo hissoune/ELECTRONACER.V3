@@ -23,10 +23,10 @@ CREATE TABLE Categories (
     imag_category varchar(255) NOT NULL,
     is_desaybelsd BOOLEAN DEFAULT FALSE NOT NULL
 );
-INSERT INTO Categories (category_name,imag_category,is_desaybelsd)
-VALUES ('Category 1','image.png',FALSE),
-    ('Category 2','image.png',FALSE),
-    ('Category 3','image.png',FALSE);
+INSERT INTO Categories (category_name, imag_category, is_desaybelsd)
+VALUES ('Category 1', 'image.png', FALSE),
+    ('Category 2', 'image.png', FALSE),
+    ('Category 3', 'image.png', FALSE);
 -- Table for products
 CREATE TABLE Products (
     product_id INT PRIMARY KEY AUTO_INCREMENT,
