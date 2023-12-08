@@ -1,6 +1,11 @@
 <?php
 session_start();
-
+if (isset($_GET['action']) && $_GET['action'] == 'clear') {
+    // Clear the cart
+    unset($_SESSION['cart']);
+    header("Location: cart.php"); // Redirect back to the cart page
+    exit();
+}
 // Check if the action is to add an item to the cart
 if (isset($_GET['action']) && $_GET['action'] == 'add') {
     // Check if the product ID is valid
