@@ -8,18 +8,8 @@ if (!isset($_SESSION["user"])) {
     exit();
 }
 
-if (isset($_GET['action']) && $_GET['action'] == 'clear') {
-    // Clear the cart
-    unset($_SESSION['cart']);
-    // Debug statement
-    echo "Cart cleared. Redirecting...";
-    // Add a delay to see if the debug statement is printed
-    sleep(2);
-    header("Location: cart.php"); // Redirect back to the cart page
-    exit();
-}
 
-// Access session variables
+// Access session variablesaa
 $userId = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : '';
 $username = isset($_SESSION['username']) ? $_SESSION['username'] : '';
 $userRole = isset($_SESSION["user"]["role"]) ? $_SESSION["user"]["role"] : '';
