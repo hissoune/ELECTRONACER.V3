@@ -62,25 +62,26 @@
 
     <body>
         <form method="post" action="" enctype="multipart/form-data" class="container mt-5">
+        <div id="categories-container" class="mb-3 w-50 mx-5">
             <!-- Product Reference -->
             <div class="input-group mb-3">
                 <span class="input-group-text" id="basic-addon1">Reference</span>
-                <input type="text" class="form-control" placeholder="Reference" name="reference" aria-label="Reference" aria-describedby="basic-addon1" required>
+                <input type="text" class="form-control" placeholder="Reference[]" name="reference" aria-label="Reference" aria-describedby="basic-addon1" required>
             </div>
             <!-- Product Label -->
             <div class="input-group mb-3">
                 <span class="input-group-text" id="basic-addon1">Label</span>
-                <input type="text" class="form-control" placeholder="Product Name" name="product_name" aria-label="Product Name" aria-describedby="basic-addon1" required>
+                <input type="text" class="form-control" placeholder="Product Name" name="product_name[]" aria-label="Product Name" aria-describedby="basic-addon1" required>
             </div>
             <!-- Product description -->
             <div class="input-group mb-3">
                 <span class="input-group-text" id="basic-addon1">Description</span>
-                <input type="text" class="form-control" placeholder="Description" name="description" aria-label="Description" aria-describedby="basic-addon1" required>
+                <input type="text" class="form-control" placeholder="Description" name="description[]" aria-label="Description" aria-describedby="basic-addon1" required>
             </div>
             <!-- Product purchase_price -->
             <div class="input-group mb-3">
                 <span class="input-group-text" id="basic-addon1">Purchase Price</span>
-                <input type="text" class="form-control" placeholder="Purchase Price" name="purchase_price" aria-label="Purchase Price" aria-describedby="basic-addon1" required>
+                <input type="text" class="form-control" placeholder="Purchase Price" name="purchase_price[]" aria-label="Purchase Price" aria-describedby="basic-addon1" required>
             </div>
             <!-- Product purchase_price -->
             <div class="input-group mb-3">
@@ -90,7 +91,7 @@
             <!-- Product price_offer -->
             <div class="input-group mb-3">
                 <span class="input-group-text" id="basic-addon1">Price Offer</span>
-                <input type="text" class="form-control" placeholder="Price Offer" name="price_offer" aria-label="Price Offer" aria-describedby="basic-addon1" required>
+                <input type="text" class="form-control" placeholder="Price Offer" name="price_offer[]" aria-label="Price Offer" aria-describedby="basic-addon1" required>
             </div>
             <!-- Product final_price -->
             <div class="input-group mb-3">
@@ -100,18 +101,18 @@
             <!-- Product min_quantity -->
             <div class="input-group mb-3">
                 <span class="input-group-text" id="basic-addon1">Min Quantity</span>
-                <input type="text" class="form-control" placeholder="Min Quantity" name="min_quantity" aria-label="Min Quantity" aria-describedby="basic-addon1" required>
+                <input type="text" class="form-control" placeholder="Min Quantity" name="min_quantity[]" aria-label="Min Quantity" aria-describedby="basic-addon1" required>
             </div>
             <!-- Product stock_quantity -->
             <div class="input-group mb-3">
                 <span class="input-group-text" id="basic-addon1">Stock Quantity</span>
-                <input type="text" class="form-control" placeholder="Stock Quantity" name="stock_quantity" aria-label="Stock Quantity" aria-describedby="basic-addon1" required>
+                <input type="text" class="form-control" placeholder="Stock Quantity" name="stock_quantity[]" aria-label="Stock Quantity" aria-describedby="basic-addon1" required>
             </div>
             <!-- Image du produit -->
             <div class="mb-3 mt-3">
                 <label for="product_image" class="form-label">Image du produit</label>
                 <div class="input-group">
-                    <input type="file" class="form-control" name="image" id="product_image" required>
+                    <input type="file" class="form-control" name="image[]" id="product_image" required>
                 </div>
                 <div class="form-text mt-2">Téléchargez une image du produit.</div>
             </div>
@@ -119,7 +120,7 @@
             <!-- Category du produit -->
             <div class="input-group mb-3">
                 <label class="input-group-text" for="category">Category</label>
-                <select class="form-select" id="category" name="category" required>
+                <select class="form-select" id="category" name="category[]" required>
                     <option value="" selected disabled>Select a category</option>
                     <?php
                     // Fetch categories from the 'Categories' table
@@ -135,13 +136,102 @@
                     ?>
                 </select>
             </div>
+            <!-- button pouur ajouter another product-->
+               <div class="d-grid my-3 w-25 ">
 
+              <button type="button" onclick="addproductField()" class="btn btn-secondary text-light  w-25">Another</button>
+                 </div>
             <!-- Bouton pour soumettre le formulaire -->
             <div class="d-grid mt-3">
                 <button type="submit" class="btn btn-primary btn-sm w-100" name="submit">Ajouter un produit</button>
                 <a href="admin-dashboard.php?page=product-management">Display Products</a>
             </div>
+            </div>
         </form>
+        <script>
+    function addproductField() {
+        const categoriesContainer = document.getElementById('categories-container');
+        const newCategoryEntry = document.createElement('div');
+        newCategoryEntry.classList.add('category-entry');
+        newCategoryEntry.innerHTML = `
+        <div class="input-group mb-3">
+                <span class="input-group-text" id="basic-addon1">Reference</span>
+                <input type="text" class="form-control" placeholder="Reference[]" name="reference" aria-label="Reference" aria-describedby="basic-addon1" required>
+            </div>
+            <!-- Product Label -->
+            <div class="input-group mb-3">
+                <span class="input-group-text" id="basic-addon1">Label</span>
+                <input type="text" class="form-control" placeholder="Product Name" name="product_name[]" aria-label="Product Name" aria-describedby="basic-addon1" required>
+            </div>
+            <!-- Product description -->
+            <div class="input-group mb-3">
+                <span class="input-group-text" id="basic-addon1">Description</span>
+                <input type="text" class="form-control" placeholder="Description" name="description[]" aria-label="Description" aria-describedby="basic-addon1" required>
+            </div>
+            <!-- Product purchase_price -->
+            <div class="input-group mb-3">
+                <span class="input-group-text" id="basic-addon1">Purchase Price</span>
+                <input type="text" class="form-control" placeholder="Purchase Price" name="purchase_price[]" aria-label="Purchase Price" aria-describedby="basic-addon1" required>
+            </div>
+            <!-- Product purchase_price -->
+            <div class="input-group mb-3">
+                <span class="input-group-text" id="basic-addon1">Barcode</span>
+                <input type="text" class="form-control" placeholder="Barcode" name="barcode" aria-label="Barcode" aria-describedby="basic-addon1" required>
+            </div>
+            <!-- Product price_offer -->
+            <div class="input-group mb-3">
+                <span class="input-group-text" id="basic-addon1">Price Offer</span>
+                <input type="text" class="form-control" placeholder="Price Offer" name="price_offer[]" aria-label="Price Offer" aria-describedby="basic-addon1" required>
+            </div>
+            <!-- Product final_price -->
+            <div class="input-group mb-3">
+                <span class="input-group-text" id="basic-addon1">Final Price</span>
+                <input type="text" class="form-control" placeholder="Final Price" name="final_price" aria-label="Final Price" aria-describedby="basic-addon1" required>
+            </div>
+            <!-- Product min_quantity -->
+            <div class="input-group mb-3">
+                <span class="input-group-text" id="basic-addon1">Min Quantity</span>
+                <input type="text" class="form-control" placeholder="Min Quantity" name="min_quantity[]" aria-label="Min Quantity" aria-describedby="basic-addon1" required>
+            </div>
+            <!-- Product stock_quantity -->
+            <div class="input-group mb-3">
+                <span class="input-group-text" id="basic-addon1">Stock Quantity</span>
+                <input type="text" class="form-control" placeholder="Stock Quantity" name="stock_quantity[]" aria-label="Stock Quantity" aria-describedby="basic-addon1" required>
+            </div>
+            <!-- Image du produit -->
+            <div class="mb-3 mt-3">
+                <label for="product_image" class="form-label">Image du produit</label>
+                <div class="input-group">
+                    <input type="file" class="form-control" name="image[]" id="product_image" required>
+                </div>
+                <div class="form-text mt-2">Téléchargez une image du produit.</div>
+            </div>
+
+            <!-- Category du produit -->
+            <div class="input-group mb-3">
+                <label class="input-group-text" for="category">Category</label>
+                <select class="form-select" id="category" name="category[]" required>
+                    <option value="" selected disabled>Select a category</option>
+                    <?php
+                    // Fetch categories from the 'Categories' table
+                    $categorySql = "SELECT * FROM Categories";
+                    $categoryResult = mysqli_query($conn, $categorySql);
+
+                    // Display categories in the dropdown menu
+                    while ($categoryRow = mysqli_fetch_assoc($categoryResult)) {
+                        echo "<option value='" . $categoryRow['category_id'] . "'>" . $categoryRow['category_name'] . "</option>";
+                    }
+
+                    mysqli_close($conn);
+                    ?>
+                </select>
+            </div>
+        `;
+        categoriesContainer.appendChild(newCategoryEntry);
+    }
+</script>
+
+
         <?php include("footer.php"); ?>
     </body>
 
