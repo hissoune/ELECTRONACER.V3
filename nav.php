@@ -1,6 +1,6 @@
 <?php
 
-// Access session variablesaa
+// Access session variables
 $userId = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : '';
 $username = isset($_SESSION['username']) ? $_SESSION['username'] : '';
 $userRole = isset($_SESSION["user"]["role"]) ? $_SESSION["user"]["role"] : '';
@@ -11,62 +11,69 @@ $cartItemCount = count($cartItems);
 ?>
 
 <!-- Navigation Bar -->
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark px-5">
-    <a class="navbar-brand" href="#">Product Listing</a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarNav">
-        <ul class="navbar-nav ml-auto">
-            <!-- Other menu items -->
-            <li class="nav-item">
-                <a class="nav-link" href="home.php">Home</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="products.php">Products</a>
-            </li>
-            <?php
-            // Check if the user is an admin
-            if ($userRole === 'admin') { ?>
-                <!-- Admin menu items -->
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        Admin
-                    </a>
-                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <a class="dropdown-item" href="admin-dashboard.php">Admin Dashboard</a>
-                        <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="logout.php">Logout</a>
-                    </div>
-                </li>
-            <?php } ?>
+<div class="d-flex ">
 
-            <?php
-            // Check if the user is a regular user
-            if ($userRole === 'user') { ?>
-                <!-- User menu items -->
-                <li class="nav-item">
-                    <a class="nav-link" href="#" data-toggle="modal" data-target="#cartModal">
-                        <i class="fas fa-shopping-cart"></i> Cart
-                        <?php if ($cartItemCount > 0) { ?>
-                            <span class="badge badge-light"><?php echo $cartItemCount; ?></span>
-                        <?php } ?>
-                    </a>
-                </li>
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        USER
-                    </a>
-                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <a class="dropdown-item" href="user-account.php">User Account</a>
-                        <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="logout.php">Logout</a>
-                    </div>
-                </li>
-            <?php } ?>
-        </ul>
-    </div>
-</nav>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark px-5 w-100">
+        <a class="navbar-brand" href="home.php">ElectroLharba</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ml-auto">
+                <!-- Other menu items -->
+                <div class="ctr d-flex px-5">
+    
+                    <li class="nav-item">
+                        <a class="nav-link" href="home.php">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="products.php">Products</a>
+                    </li>
+                </div>
+                <?php
+                // Check if the user is an admin
+                if ($userRole === 'admin') { ?>
+                    <!-- Admin menu items -->
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Admin
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <a class="dropdown-item" href="admin-dashboard.php">Admin Dashboard</a>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item" href="logout.php">Logout</a>
+                        </div>
+                    </li>
+                <?php } ?>
+    
+                <?php
+                // Check if the user is a regular user
+                if ($userRole === 'user') { ?>
+                    <!-- User menu items -->
+                    
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            USER
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <a class="dropdown-item" href="user-account.php">User Account</a>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item" href="logout.php">Logout</a>
+                        </div>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#" data-toggle="modal" data-target="#cartModal">
+                            <i class="fas fa-shopping-cart"></i> Cart
+                            <?php if ($cartItemCount > 0) { ?>
+                                <span class="badge badge-light"><?php echo $cartItemCount; ?></span>
+                            <?php } ?>
+                        </a>
+                    </li>
+                <?php } ?>
+            </ul>
+        </div>
+    </nav>
+</div>
 
 
 <!-- Cart Modal -->

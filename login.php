@@ -19,7 +19,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             if ($user["role"] == "admin") {
                 header("Location: products.php"); // Redirect to admin dashboard
             } else {
-                header("Location: products.php"); // Redirect to user account page
+                header("Location: home.php"); // Redirect to user account page
             }
 
             exit();
@@ -48,6 +48,7 @@ $conn->close();
 
     <!-- fontawesome CSS -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha256-hk1J8HZqEW/p7zC0xjYYr4EhGtYszmJdz21pKBC7ROU=" crossorigin="anonymous" />
+    <link rel="icon" href="img/electric.png">
 </head>
 <style>
 

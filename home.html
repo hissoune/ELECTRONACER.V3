@@ -1,15 +1,3 @@
-<?php
-session_start();
-include 'db_cnx.php';
-
-// Check if the user is logged in
-if (!isset($_SESSION["user"])) {
-    header("Location: login.php");
-    exit();
-}
-
-?>
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -25,17 +13,16 @@ if (!isset($_SESSION["user"])) {
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha256-hk1J8HZqEW/p7zC0xjYYr4EhGtYszmJdz21pKBC7ROU=" crossorigin="anonymous" />
 
     <link rel="stylesheet" href="home.css">
-    <link rel="icon" href="img/electric.png">
 </head>
 
 <body>
     <!--Write your code here -->
 
-    <div id="upp" class="bg-danger text-light text-center">
+    <div id="upp" class="bg-dark text-light text-center">
         <a href="#" class="navbar-brand py-4">tkhfidat katwsl l 90% !!!!</a>
     </div>
 
-    <!-- <nav class="navbar navbar-expand-sm">
+    <nav class="navbar navbar-expand-sm">
         <div class="container">
 
             <a href="#" class="navbar-brand">ElectroNacer</a>
@@ -52,6 +39,7 @@ if (!isset($_SESSION["user"])) {
                         <a href="" class="nav-link hovri">About</a>
                     </li>
                 </ul>
+                <!-- <a href="#" class="navbar-brand">P</a> -->
                 <a href="#" id="pCart" class="navbar-brand"><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-garden-cart" width="40" height="40" viewBox="0 0 24 24" stroke-width="1" stroke="red" fill="none" stroke-linecap="round" stroke-linejoin="round">
                     <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
                     <path d="M17.5 17.5m-2.5 0a2.5 2.5 0 1 0 5 0a2.5 2.5 0 1 0 -5 0" />
@@ -61,12 +49,7 @@ if (!isset($_SESSION["user"])) {
                 </a>
             </div>
         </div>
-    </nav> -->
-
-    <!-- Navigation Bar -->
-    <?php
-        include("nav.php")
-    ?>
+    </nav>
 
     <section class="lwl">
         <div class="pt-5 container d-flex gap-5">
@@ -76,9 +59,9 @@ if (!isset($_SESSION["user"])) {
                 <h5>Mar7ba bljami3</h5>
                 <h1>ElectroNacer</h1>
                 <p>Welcome to Electronacer, your destination for cutting-edge electronics! Discover a curated selection of top-tier gadgets and accessories that redefine innovation. Elevate your lifestyle with premium electronic essentials.</p>
-                <div >
-                    <a class=" btn btn-outline-light rounded-5" href="products.php">Products</a>
-                    <!-- <a class=" btn rounded-5" href="">About</a> -->
+                <div style="padding-top: 2rem;">
+                    <a class=" btn btn-outline-light rounded-5" href="">Products</a>
+                    <a class=" btn rounded-5" href="">About</a>
                 </div>
             </div>
             <div>
@@ -173,27 +156,20 @@ if (!isset($_SESSION["user"])) {
             <img class="rounded-5 kask" width="400" src="img/kask.jpg" alt="kask">
         </div> -->
     </section>
-<?php
-    $query = "SELECT imag_category FROM Categories";
-    $result = mysqli_query($conn, $query);
 
-?>
-
-<section class="three py-5">
-    <div class="text-center pb-5">
-        <h1 class="display-1">Categories</h1>
-    </div>
-
-    <div class="aw d-flex flex-wrap justify-content-around w-100 gap-5 py-5">
-        <?php
-        while ($row = mysqli_fetch_assoc($result)) {
-            $imagePath = $row['imag_category'];
-
-            echo '<img class="opa" width="350" src="img/' . $imagePath . '" alt="oui">';
-        }
-        ?>
-    </div>
-</section>
+    <section class="three py-5">
+        <!-- <div class="dikor">
+            <a class="bg-danger"></a>
+        </div> -->
+        <div class=" text-center pb-5">
+            <h1 class="display-1">Categories</h1>
+        </div>
+        <div class="aw d-flex flex-wrap justify-content-around w-100 gap-5 py-5">
+            <img class="opa" width="350" src="img/ac1.jpg" alt="ac1">
+            <img class="opa" width="350" src="img/ac2.jpg" alt="ac1">
+            <img class="opa" width="350" src="img/ac3.jpg" alt="ac1">
+        </div>
+    </section>
 
 
     <!-- Footer -->
@@ -330,4 +306,11 @@ if (!isset($_SESSION["user"])) {
     </footer>
     <!-- Footer -->
     
-    <?php include("footer.php"); ?>
+
+    <!--Write your code here -->
+    <!-- Bootstrap JS and dependencies -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous">
+    </script>
+</body>
+
+</html>

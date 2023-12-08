@@ -40,18 +40,16 @@ $conn->close();
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="stylehind.css">
+    <link rel="icon" href="img/electric.png">
 
     <!-- Custom CSS for styling -->
 </head>
 
 <body>
-    <!-- Navbar -->
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-        <div class="container-fluid">
-            <a class="navbar-brand" href="#">Your Brand</a>
-            <!-- Add navigation links as needed -->
-        </div>
-    </nav>
+    <!-- Navigation Bar -->
+    <?php
+        include("nav.php")
+    ?>
 
 
   <!-- user card (informations) -->
