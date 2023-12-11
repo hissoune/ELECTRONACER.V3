@@ -1,12 +1,6 @@
 <?php
-include('db_cnx.php');
-session_start(); // Make sure to start the session
-
-// Check if the user is logged in
-if (!isset($_SESSION["user"])) {
-    header("Location: login.php");
-    exit();
-}
+session_start(); // Start the session
+include 'db_cnx.php'; // Include your database connection file
 
 // Get product ID from the URL
 $product_id = isset($_GET['id']) ? $_GET['id'] : '';

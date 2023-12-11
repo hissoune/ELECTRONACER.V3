@@ -22,7 +22,7 @@ $cartItemCount = count($cartItems);
             <ul class="navbar-nav ml-auto">
                 <!-- Other menu items -->
                 <div class="ctr d-flex px-5">
-    
+
                     <li class="nav-item">
                         <a class="nav-link" href="home.php">Home</a>
                     </li>
@@ -44,13 +44,11 @@ $cartItemCount = count($cartItems);
                             <a class="dropdown-item" href="logout.php">Logout</a>
                         </div>
                     </li>
-                <?php } ?>
-    
-                <?php
+                <?php }
                 // Check if the user is a regular user
-                if ($userRole === 'user') { ?>
+                elseif ($userRole === 'user') { ?>
                     <!-- User menu items -->
-                    
+
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             USER
@@ -68,6 +66,11 @@ $cartItemCount = count($cartItems);
                                 <span class="badge badge-light"><?php echo $cartItemCount; ?></span>
                             <?php } ?>
                         </a>
+                    </li>
+                <?php } else { ?>
+                    <!-- Guest menu items -->
+                    <li class="nav-item">
+                        <a class="nav-link" href="login.php">Login</a>
                     </li>
                 <?php } ?>
             </ul>

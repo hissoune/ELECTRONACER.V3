@@ -1,6 +1,6 @@
 <?php
-include 'db_cnx.php'; // Include your database connection script
-session_start();
+session_start(); // Start the session
+include 'db_cnx.php'; // Include your database connection file
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Get user input

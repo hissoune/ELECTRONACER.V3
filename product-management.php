@@ -1,10 +1,6 @@
 <?php
-// Add this line to enable error reporting
-ini_set('display_errors', 1);
-ini_set('display_startup_errors', 1);
-error_reporting(E_ALL);
-
-require 'db_cnx.php';
+session_start(); // Start the session
+include 'db_cnx.php'; // Include your database connection file
 
 /// Handle form submission for enabling/disabling
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["toggle_product"])) {

@@ -1,5 +1,6 @@
 <?php
-require 'db_cnx.php';
+session_start(); // Start the session
+include 'db_cnx.php'; // Include your database connection file
 
 // Check if the product ID is provided in the URL
 if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['id'])) {

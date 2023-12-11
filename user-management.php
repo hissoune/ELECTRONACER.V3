@@ -1,11 +1,5 @@
 <?php
 
-// Check if the user is logged in as an admin
-if (!isset($_SESSION['user']) || $_SESSION['user']['role'] !== 'admin') {
-    // Redirect to the login page if not logged in or not an admin
-    header("Location: login.php");
-    exit();
-}
 
 // Get user role from the session
 $userRole = $_SESSION['user']['role'];

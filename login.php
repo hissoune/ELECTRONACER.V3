@@ -1,6 +1,6 @@
 <?php
-include 'db_cnx.php'; // Include your database connection script
-session_start();
+session_start(); // Start the session
+include 'db_cnx.php'; // Include your database connection file
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $email = $_POST["email"];
@@ -19,7 +19,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             if ($user["role"] == "admin") {
                 header("Location: products.php"); // Redirect to admin dashboard
             } else {
-                header("Location: home.php"); // Redirect to user account page
+                header("Location: index.php"); // Redirect to user account page
             }
 
             exit();
@@ -51,30 +51,46 @@ $conn->close();
     <link rel="icon" href="img/electric.png">
 </head>
 <style>
+    body {
+        /* background-image: url(./img/pic3.jpg); */
+        background: linear-gradient(90deg, rgba(30, 0, 0) 0%, rgba(9, 9, 121, 1) 50%, rgba(30, 0, 0) 100%);
+        background-size: cover;
+    }
 
-body{
-    /* background-image: url(./img/pic3.jpg); */
-            background: linear-gradient(90deg, rgba(30, 0, 0) 0%, rgba(9,9,121,1) 50%, rgba(30,0,0) 100%);
-  background-size: cover;
-}
-h3 {
-    color: #D4D4D4;
-    font-size: 8rem;
-    font-family: "Times New Roman", Times, serif;
-}
-.dir{
-  position: relative;
-  animation: mymove 1s;
-  animation-fill-mode: forwards;
-}
-#div1 {animation-timing-function: linear;}
-#div2 {animation-timing-function: ease;}
-#div3 {animation-timing-function: ease-in-out;}
-@keyframes mymove {
-  from {left: -500px;}
-  to {left: 0px;}
+    h3 {
+        color: #D4D4D4;
+        font-size: 8rem;
+        font-family: "Times New Roman", Times, serif;
+    }
 
-}
+    .dir {
+        position: relative;
+        animation: mymove 1s;
+        animation-fill-mode: forwards;
+    }
+
+    #div1 {
+        animation-timing-function: linear;
+    }
+
+    #div2 {
+        animation-timing-function: ease;
+    }
+
+    #div3 {
+        animation-timing-function: ease-in-out;
+    }
+
+    @keyframes mymove {
+        from {
+            left: -500px;
+        }
+
+        to {
+            left: 0px;
+        }
+
+    }
 </style>
 
 <body>
@@ -92,7 +108,7 @@ h3 {
                     ?>
 
                     <form method="post">
-                        <div id="div1" class="dir" style="margin-top: 10%;" >
+                        <div id="div1" class="dir" style="margin-top: 10%;">
                             <label style="color: #D4D4D4;" for="email" class="form-label">Email address</label>
                             <input type="email" class="form-control" id="email" name="email" required>
                         </div>
@@ -103,7 +119,8 @@ h3 {
                         <button style="margin-top: 5%;" id="div3" type="submit" class="btn btn-primary dir">Login</button>
                     </form>
 
-                    <p class="mt-3" style="color: #D4D4D4;">Don't have an account? <a href="?page=register">Register here</a></p>
+                    <p class="mt-3" style="color: #D4D4D4;">Don't have an account? <a href="?page=register">Register
+                            here</a></p>
                 </div>
             </div>
         </div>
