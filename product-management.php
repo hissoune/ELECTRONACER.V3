@@ -1,13 +1,11 @@
 <?php
-session_start(); // Start the session
-include 'db_cnx.php'; // Include your database connection file
 
 /// Handle form submission for enabling/disabling
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["toggle_product"])) {
     $productId = $_POST["toggle_product"];
 
     // Toggle the disable status for the specified product
-    $conn->query("UPDATE Products SET disabled = NOT disabled WHERE product_id = $productId");
+    $conn->query("UPDATE Products SET disabled = NOT disabled WHERE oduct_id = $productId");
 }
 
 
@@ -54,7 +52,7 @@ $result = mysqli_query($conn, $sql);
                         echo "<tr>";
                         echo "<td>" . $row['product_id'] . "</td>";
                         // Display the product image
-                        echo "<td><img src='./img/" . $row['image'] . "' width='100' height = '100'></td>";
+                        echo "<td><img src='./img/" . $row['image'] . "' width='100' height='100'></td>";
 
                         echo "<td>" . $row['reference'] . "</td>";
                         echo "<td>" . $row['label'] . "</td>";

@@ -1,9 +1,3 @@
-<?php
-session_start(); // Start the session
-include 'db_cnx.php'; // Include your database connection file
-
-
-?>
 <!DOCTYPE html>
 <html lang="en">
 
