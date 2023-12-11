@@ -58,7 +58,7 @@ $result = mysqli_query($conn, $sql);
                         echo "<tr>";
                         echo "<td>" . $row['product_id'] . "</td>";
                         // Display the product image
-                        echo "<td><img src='./img/" . $row['image'] . "' width='100' height='100'></td>";
+                        echo "<td><img src='./img/" . $row['image'] . "' width='100' height = '100'></td>";
 
                         echo "<td>" . $row['reference'] . "</td>";
                         echo "<td>" . $row['label'] . "</td>";
