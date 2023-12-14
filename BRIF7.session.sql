@@ -1,14 +1,14 @@
 -- Create a new database
-DROP DATABASE IF EXISTS electronacerv3;
-CREATE DATABASE electronacerv3;
-USE electronacerv3;
+DROP DATABASE IF EXISTS ELECTRONACERV4;
+CREATE DATABASE ELECTRONACERV4;
+USE ELECTRONACERV4;
 -- Table for users (combined)
 CREATE TABLE Users (
     user_id INT PRIMARY KEY AUTO_INCREMENT,
     username VARCHAR(255) UNIQUE NOT NULL,
     email VARCHAR(255) UNIQUE NOT NULL,
     password VARCHAR(255) NOT NULL,
-    role ENUM('admin', 'user') DEFAULT 'user',
+    role ENUM('admin', 'client') DEFAULT 'client',
     verified BOOLEAN DEFAULT FALSE,
     full_name VARCHAR(255) NOT NULL,
     phone_number VARCHAR(15),
@@ -111,7 +111,7 @@ VALUES (
         'User',
         'user@test.com',
         'user123',
-        'user',
+        'client',
         TRUE,
         'Regular User',
         '987654321',
@@ -123,7 +123,7 @@ VALUES (
         'User1',
         'user1@test.com',
         'user123',
-        'user',
+        'client',
         FALSE,
         'User1 User',
         '111222333',
