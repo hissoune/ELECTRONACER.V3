@@ -54,10 +54,12 @@ $conn->close();
         </div>
         <div class="card w-100 h-200" style="padding: 20px; margin-left: -30%; ">
             <div class="row m-l-0 m-r-0">
-                <div class="col-sm-4 bg-c-lite-green" style="margin-left: 14%; border-radius: 80px; height: 300px; width: 600px;">
+                <div class="col-sm-4 bg-c-lite-green"
+                    style="margin-left: 14%; border-radius: 80px; height: 300px; width: 600px;">
                     <div class="carte card-block text-center text-white" style="margin-top: 5%;">
                         <div class="m-b-25">
-                            <img src="https://img.icons8.com/bubbles/100/000000/user.png" class="img-radius" alt="User-Profile-Image">
+                            <img src="https://img.icons8.com/bubbles/100/000000/user.png" class="img-radius"
+                                alt="User-Profile-Image">
                         </div>
                         <h6 class="f-w-600" style="text-decoration: underline;"> <?php echo $userData['full_name']; ?>
                         </h6>
@@ -100,9 +102,4 @@ $conn->close();
 
 
 
-    <!-- Bootstrap JS (Optional) -->
-    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-</body>
-
-</html>
+    <?php include("footer.php"); ?>

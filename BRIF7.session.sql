@@ -1,7 +1,7 @@
 -- Create a new database
-DROP DATABASE IF EXISTS ELECTRONACERV4;
-CREATE DATABASE ELECTRONACERV4;
-USE ELECTRONACERV4;
+DROP DATABASE IF EXISTS ELECTRONACERV3;
+CREATE DATABASE ELECTRONACERV3;
+USE ELECTRONACERV3;
 -- Table for users (combined)
 CREATE TABLE Users (
     user_id INT PRIMARY KEY AUTO_INCREMENT,
@@ -21,9 +21,9 @@ CREATE TABLE Categories (
     category_id INT PRIMARY KEY AUTO_INCREMENT,
     category_name VARCHAR(255) NOT NULL,
     imag_category varchar(255) NOT NULL,
-    is_desaybelsd BOOLEAN DEFAULT FALSE NOT NULL
+    is_disabled BOOLEAN DEFAULT FALSE NOT NULL
 );
-INSERT INTO Categories (category_name, imag_category, is_desaybelsd)
+INSERT INTO Categories (category_name, imag_category, is_disabled)
 VALUES ('Category 1', 'image.png', FALSE),
     ('Category 2', 'image.png', FALSE),
     ('Category 3', 'image.png', FALSE);

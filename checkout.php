@@ -40,7 +40,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['confirmCheckout'])) {
     $sendDate = date("Y-m-d");
     $deliveryDate = date("Y-m-d", strtotime("+7 days"));
 
-    $orderSql = "INSERT INTO Orders (user_id, order_date, total_price, order_status, send_date, delivery_date) VALUES ('$userId', '$orderDate', '$totalPrice', '$orderStatus', '$sendDate', '$deliveryDate')";
+    $orderSql = "INSERT INTO Orders (user_id, order_date, total_price, order_status, send_date, delivery_date) 
+    VALUES 
+    ('$userId', '$orderDate', '$totalPrice', '$orderStatus', '$sendDate', '$deliveryDate')";
     $conn->query($orderSql);
     $orderId = $conn->insert_id;  // Get the ID of the inserted order
 
@@ -95,21 +97,25 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['confirmCheckout'])) {
             <!-- Display user information fetched from the database -->
             <div class="form-group">
                 <label for="fullname">Full Name:</label>
-                <input type="text" class="form-control" id="fullname" name="fullname" value="<?php echo $fullName; ?>" readonly>
+                <input type="text" class="form-control" id="fullname" name="fullname" value="<?php echo $fullName; ?>"
+                    readonly>
             </div>
             <div class="form-group">
                 <label for="address">Address:</label>
-                <input type="text" class="form-control" id="address" name="address" value="<?php echo $address; ?>" readonly>
+                <input type="text" class="form-control" id="address" name="address" value="<?php echo $address; ?>"
+                    readonly>
             </div>
 
             <!-- Add fields for send_date and delivery_date -->
             <div class="form-group">
                 <label for="send_date">Send Date:</label>
-                <input type="text" class="form-control" id="send_date" name="send_date" value="<?php echo $sendDate; ?>" readonly>
+                <input type="text" class="form-control" id="send_date" name="send_date" value="<?php echo $sendDate; ?>"
+                    readonly>
             </div>
             <div class="form-group">
                 <label for="delivery_date">Delivery Date:</label>
-                <input type="text" class="form-control" id="delivery_date" name="delivery_date" value="<?php echo $deliveryDate; ?>" readonly>
+                <input type="text" class="form-control" id="delivery_date" name="delivery_date"
+                    value="<?php echo $deliveryDate; ?>" readonly>
             </div>
 
             <!-- Add more fields as needed -->
@@ -126,11 +132,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['confirmCheckout'])) {
                 </thead>
                 <tbody>
                     <?php foreach ($cartItems as $item) : ?>
-                        <tr>
-                            <td><?php echo $item['name']; ?></td>
-                            <td><?php echo $item['quantity']; ?></td>
-                            <td>$<?php echo $item['price']; ?></td>
-                        </tr>
+                    <tr>
+                        <td><?php echo $item['name']; ?></td>
+                        <td><?php echo $item['quantity']; ?></td>
+                        <td>$<?php echo $item['price']; ?></td>
+                    </tr>
                     <?php endforeach; ?>
                 </tbody>
             </table>
@@ -154,15 +160,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['confirmCheckout'])) {
     ?>
 
     <script>
-        // JavaScript function to print the invoice
-        function printInvoice() {
-            window.print();
-        }
+    // JavaScript function to print the invoice
+    function printInvoice() {
+        window.print();
+    }
 
-        // Show the confirmation alert
-        $(document).ready(function() {
-            if (<?php echo isset($_POST['confirmCheckout']) ? 'true' : 'false'; ?>) {
-                $('#confirmationAlert').addClass('show');
-            }
-        });
+    // Show the confirmation alert
+    $(document).ready(function() {
+        if (<?php echo isset($_POST['confirmCheckout']) ? 'true' : 'false'; ?>) {
+            $('#confirmationAlert').addClass('show');
+        }
+    });
     </script>

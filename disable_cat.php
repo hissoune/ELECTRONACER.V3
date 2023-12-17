@@ -12,7 +12,7 @@
     include('db_cnx.php');
     if (isset($_GET["id"])) {
         $id = $_GET["id"];
-        $delete_cat = "UPDATE Categories SET is_disabled = FALSE WHERE category_id = $id";
+        $delete_cat = "UPDATE Categories SET is_disabled = TRUE WHERE category_id = $id";
 
         if ($conn->query($delete_cat) === TRUE) {
             header("Location: admin-dashboard.php?page=category-management");

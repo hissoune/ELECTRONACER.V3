@@ -1,12 +1,14 @@
 <?php
 session_start();
+
+// Clear the cart
 if (isset($_GET['action']) && $_GET['action'] == 'clear') {
-    // Clear the cart
     unset($_SESSION['cart']);
-    header("Location: cart.php"); // Redirect back to the cart page
+    header("Location: cart.php");
     exit();
 }
-// Check if the action is to add an item to the cart
+
+// Add an item to the cart
 if (isset($_GET['action']) && $_GET['action'] == 'add') {
     // Check if the product ID is valid
     if (isset($_GET['id']) && is_numeric($_GET['id'])) {
@@ -18,7 +20,14 @@ if (isset($_GET['action']) && $_GET['action'] == 'add') {
 
         // Validate product details
         if (empty($productName) || empty($productPrice)) {
-            throw new Exception('Invalid product details.');
+            // Handle validation error more gracefully (e.g., redirect with an error message)
+            header("Location: products.php?error=invalid_product_details");
+            exit();
+        }
+
+        // Initialize the cart session variable if not exists
+        if (!isset($_SESSION['cart'])) {
+            $_SESSION['cart'] = array();
         }
 
         // Create the cart item
@@ -29,37 +38,25 @@ if (isset($_GET['action']) && $_GET['action'] == 'add') {
             'quantity' => $quantity
         );
 
-        // Check if the cart session variable exists
-        if (!isset($_SESSION['cart'])) {
-            $_SESSION['cart'] = array();
-        }
-
         // Check if the product is already in the cart
-        $cartIndex = -1;
-        foreach ($_SESSION['cart'] as $key => $item) {
-            if ($item['id'] == $productId) {
-                $cartIndex = $key;
-                break;
-            }
-        }
+        $cartIndex = array_search($productId, array_column($_SESSION['cart'], 'id'));
 
         // If the product is in the cart, update the quantity
-        if ($cartIndex !== -1) {
+        if ($cartIndex !== false) {
             $_SESSION['cart'][$cartIndex]['quantity'] += $quantity;
         } else {
             // If not, add the product to the cart
             $_SESSION['cart'][] = $cartItem;
         }
 
-        // Debug: Output session and cart information
-        echo '<pre>';
-        var_dump($_SESSION);
-        echo '</pre>';
+        // Redirect to the products page after adding an item
+        header("Location: products.php");
+        exit();
     }
 }
 
 // Other cart-related logic, such as updating quantities, removing items, etc.
 
-// Redirect back to the product page or display a message as needed
+// Redirect back to the products page (default redirect)
 header("Location: products.php");
 exit();
