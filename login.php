@@ -19,9 +19,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             if ($user["role"] == "admin") {
                 header("Location: products.php"); // Redirect to admin dashboard
             } else {
-                header("Location: index.php"); // Redirect to user account page
+                header("Location: products.php"); // Redirect to user account page
             }
-
             exit();
         } else {
             // User is not verified, redirect to unverified page
@@ -44,61 +43,59 @@ $conn->close();
     <title></title>
 
     <!-- Bootstrap CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous" />
 
     <!-- fontawesome CSS -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
-        integrity="sha256-hk1J8HZqEW/p7zC0xjYYr4EhGtYszmJdz21pKBC7ROU=" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha256-hk1J8HZqEW/p7zC0xjYYr4EhGtYszmJdz21pKBC7ROU=" crossorigin="anonymous" />
     <link rel="icon" href="img/electric.png">
 </head>
 <style>
-body {
-    /* background-image: url(./img/pic3.jpg); */
-    background: linear-gradient(90deg, rgba(30, 0, 0) 0%, rgba(9, 9, 121, 1) 50%, rgba(30, 0, 0) 100%);
-    background-size: cover;
-}
-
-h3 {
-    color: #D4D4D4;
-    font-size: 8rem;
-    font-family: "Times New Roman", Times, serif;
-}
-
-.dir {
-    position: relative;
-    animation: mymove 1s;
-    animation-fill-mode: forwards;
-}
-
-#div1 {
-    animation-timing-function: linear;
-}
-
-#div2 {
-    animation-timing-function: ease;
-}
-
-#div3 {
-    animation-timing-function: ease-in-out;
-}
-
-@keyframes mymove {
-    from {
-        left: -500px;
+    body {
+        /* background-image: url(./img/pic3.jpg); */
+        background: linear-gradient(90deg, rgba(30, 0, 0) 0%, rgba(9, 9, 121, 1) 50%, rgba(30, 0, 0) 100%);
+        background-size: cover;
     }
 
-    to {
-        left: 0px;
+    h3 {
+        color: #D4D4D4;
+        font-size: 8rem;
+        font-family: "Times New Roman", Times, serif;
     }
 
-}
+    .dir {
+        position: relative;
+        animation: mymove 1s;
+        animation-fill-mode: forwards;
+    }
+
+    #div1 {
+        animation-timing-function: linear;
+    }
+
+    #div2 {
+        animation-timing-function: ease;
+    }
+
+    #div3 {
+        animation-timing-function: ease-in-out;
+    }
+
+    @keyframes mymove {
+        from {
+            left: -500px;
+        }
+
+        to {
+            left: 0px;
+        }
+
+    }
 </style>
 
 <body>
     <?php
-  include("nav.php")
-  ?>
+    include("nav.php")
+    ?>
     <!--Write your code here -->
     <section>
         <div class="container">
@@ -121,8 +118,7 @@ h3 {
                             <label for="password" class="form-label" style="color: #D4D4D4;">Password</label>
                             <input type="password" class="form-control" id="password" name="password" required>
                         </div>
-                        <button style="margin-top: 5%;" id="div3" type="submit"
-                            class="btn btn-primary dir">Login</button>
+                        <button style="margin-top: 5%;" id="div3" type="submit" class="btn btn-primary dir">Login</button>
                     </form>
 
                     <p class="mt-3" style="color: #D4D4D4;">Don't have an account? <a href="register.php">Register

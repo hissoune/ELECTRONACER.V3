@@ -8,7 +8,7 @@ CREATE TABLE Users (
     username VARCHAR(255) UNIQUE NOT NULL,
     email VARCHAR(255) UNIQUE NOT NULL,
     password VARCHAR(255) NOT NULL,
-    role ENUM('admin', 'client') DEFAULT 'client',
+    role ENUM('admin', 'user') DEFAULT 'user',
     verified BOOLEAN DEFAULT FALSE,
     full_name VARCHAR(255) NOT NULL,
     phone_number VARCHAR(15),
@@ -68,20 +68,6 @@ CREATE TABLE OrderDetails (
     FOREIGN KEY (product_id) REFERENCES Products(product_id),
     FOREIGN KEY (user_id) REFERENCES Users(user_id)
 );
--- Table for client states (assuming admin can manage client states)
-CREATE TABLE UserStates (
-    client_state_id INT PRIMARY KEY AUTO_INCREMENT,
-    user_id INT,
-    state ENUM('Validated', 'Cancelled', 'Other'),
-    FOREIGN KEY (user_id) REFERENCES Users(user_id)
-);
--- Table for order states (assuming admin can manage order states)
-CREATE TABLE OrderStates (
-    order_state_id INT PRIMARY KEY AUTO_INCREMENT,
-    order_id INT,
-    state ENUM('Validated', 'Cancelled', 'Other'),
-    FOREIGN KEY (order_id) REFERENCES Orders(order_id)
-);
 -- Add your sample data for users
 INSERT INTO Users (
         username,
@@ -111,7 +97,7 @@ VALUES (
         'User',
         'user@test.com',
         'user123',
-        'client',
+        'user',
         TRUE,
         'Regular User',
         '987654321',
@@ -123,7 +109,7 @@ VALUES (
         'User1',
         'user1@test.com',
         'user123',
-        'client',
+        'user',
         FALSE,
         'User1 User',
         '111222333',

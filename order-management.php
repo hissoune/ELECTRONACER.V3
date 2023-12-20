@@ -28,13 +28,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
             if ($stmt->execute()) {
                 echo '<div class="alert alert-success" role="alert">Order details updated successfully!</div>';
-                // Redirect to the same page to avoid resubmission on refresh
-                header("Location: admin-dashboard.php?page=order-management");
+                echo '<script>window.location.replace("admin-dashboard.php?page=order-management");</script>';
                 exit();
             } else {
                 echo '<div class="alert alert-danger" role="alert">Error updating order details: ' . $stmt->error . '</div>';
-                // Redirect to the same page to avoid resubmission on refresh
-                header("Location: admin-dashboard.php?page=order-management");
+                echo '<script>window.location.replace("admin-dashboard.php?page=order-management");</script>';
                 exit();
             }
         } else {
@@ -128,7 +126,6 @@ while ($orderData = $orderResult->fetch_assoc()) {
     echo '                           <option value="Pending" ' . ($orderData['order_status'] == 'Pending' ? 'selected' : '') . '>Pending</option>';
     echo '                           <option value="Validated" ' . ($orderData['order_status'] == 'Validated' ? 'selected' : '') . '>Validated</option>';
     echo '                           <option value="Cancelled" ' . ($orderData['order_status'] == 'Cancelled' ? 'selected' : '') . '>Cancelled</option>';
-    // Add more status options as needed
     echo '                       </select>';
     echo '                   </div>';
     echo '                   <div class="form-group">';

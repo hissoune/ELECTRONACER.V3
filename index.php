@@ -15,12 +15,10 @@ include 'db_cnx.php'; // Include your database connection file
     <title>Home</title>
 
     <!-- Bootstrap CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous" />
 
     <!-- fontawesome CSS -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
-        integrity="sha256-hk1J8HZqEW/p7zC0xjYYr4EhGtYszmJdz21pKBC7ROU=" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha256-hk1J8HZqEW/p7zC0xjYYr4EhGtYszmJdz21pKBC7ROU=" crossorigin="anonymous" />
 
     <link rel="stylesheet" href="home.css">
     <link rel="icon" href="img/electric.png">
@@ -33,8 +31,8 @@ include 'db_cnx.php'; // Include your database connection file
         <a href="#" class="navbar-brand py-4">tkhfidat katwsl l 90% !!!!</a>
     </div>
     <?php
-  include("nav.php")
-  ?>
+    include("nav.php")
+    ?>
 
     <section class="lwl">
         <div class="pt-5 container d-flex gap-5">
@@ -157,10 +155,10 @@ include 'db_cnx.php'; // Include your database connection file
         </div> -->
     </section>
     <?php
-  $query = "SELECT imag_category FROM Categories";
-  $result = mysqli_query($conn, $query);
+    $query = "SELECT imag_category FROM Categories";
+    $result = mysqli_query($conn, $query);
 
-  ?>
+    ?>
 
     <section class="three py-5">
         <div class="text-center pb-5">
@@ -169,12 +167,12 @@ include 'db_cnx.php'; // Include your database connection file
 
         <div class="aw d-flex flex-wrap justify-content-around w-100 gap-5 py-5">
             <?php
-      while ($row = mysqli_fetch_assoc($result)) {
-        $imagePath = $row['imag_category'];
+            while ($row = mysqli_fetch_assoc($result)) {
+                $imagePath = $row['imag_category'];
 
-        echo '<img class="opa" width="350" src="img/' . $imagePath . '" alt="oui">';
-      }
-      ?>
+                echo '<img class="opa" width="350" src="img/' . $imagePath . '" alt="oui">';
+            }
+            ?>
         </div>
     </section>
 
