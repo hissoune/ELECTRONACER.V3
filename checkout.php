@@ -3,10 +3,10 @@ include('db_cnx.php');
 session_start();
 
 // Check if the user is logged in
-// if (!isset($_SESSION["user"])) {
-//     header("Location: login.php");
-//     exit();
-// }
+if (!isset($_SESSION["user"])) {
+    header("Location: login.php");
+    exit();
+}
 // Initialize variables
 
 $sendDate = date("Y-m-d", strtotime("+1 days"));  // Initialize $sendDate with the current date
@@ -46,7 +46,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['confirmCheckout'])) {
     $sendDate = date("Y-m-d");
     $deliveryDate = date("Y-m-d", strtotime("+7 days"));
 
-    $orderSql = "INSERT INTO Orders (user_id, order_date, total_price, order_status, send_date, delivery_date) VALUES ('$userId', '$orderDate', '$totalPrice', '$orderStatus', '$sendDate', '$deliveryDate')";
+    $orderSql = "INSERT INTO Orders (user_id, order_date, total_price, order_status, send_date, delivery_date) 
+    VALUES 
+    ('$userId', '$orderDate', '$totalPrice', '$orderStatus', '$sendDate', '$deliveryDate')";
     $conn->query($orderSql);
     $orderId = $conn->insert_id;  // Get the ID of the inserted order
 
@@ -58,7 +60,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['confirmCheckout'])) {
         $totalItemPrice = $quantity * $unitPrice;
 
         // Proceed with the insertion using INSERT IGNORE
-        $orderDetailsSql = "INSERT IGNORE INTO OrderDetails (order_id, product_id, quantity, unit_price, total_price) VALUES ('$orderId', '$productId', '$quantity', '$unitPrice', '$totalItemPrice')";
+        $orderDetailsSql = "INSERT IGNORE INTO OrderDetails (order_id, product_id, quantity, unit_price, total_price ) VALUES ('$orderId', '$productId', '$quantity', '$unitPrice', '$totalItemPrice')";
         $result = $conn->query($orderDetailsSql);
 
         if (!$result) {

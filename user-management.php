@@ -1,11 +1,5 @@
 <?php
 
-// Check if the user is logged in as an admin
-if (!isset($_SESSION['user']) || $_SESSION['user']['role'] !== 'admin') {
-    // Redirect to the login page if not logged in or not an admin
-    header("Location: login.php");
-    exit();
-}
 
 // Get user role from the session
 $userRole = $_SESSION['user']['role'];
@@ -123,7 +117,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["user_id"])) {
         </table>
     </form>
 </div>
-<div class="modal fade" id="addUserModal" tabindex="-1" role="dialog" aria-labelledby="addUserModalLabel" aria-hidden="true">
+<div class="modal fade" id="addUserModal" tabindex="-1" role="dialog" aria-labelledby="addUserModalLabel"
+    aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">

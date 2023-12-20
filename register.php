@@ -1,6 +1,6 @@
 <?php
-include 'db_cnx.php'; // Include your database connection script
-session_start();
+session_start(); // Start the session
+include 'db_cnx.php'; // Include your database connection file
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Get user input
@@ -64,7 +64,7 @@ $conn->close();
                         <button type="submit" class="btn btn-primary">Register</button>
                     </form>
 
-                    <p class="mt-3">Already have an account? <a href="?page=login">Login here</a></p>
+                    <p class="mt-3">Already have an account? <a href="login.php">Login here</a></p>
                 </div>
             </div>
         </div>

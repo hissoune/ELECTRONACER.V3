@@ -1,12 +1,6 @@
 <?php
 session_start();
 
-// Check if the user is logged in
-if (!isset($_SESSION["user"])) {
-    header("Location: login.php");
-    exit();
-}
-
 // Add your database connection file
 include('db_cnx.php');
 

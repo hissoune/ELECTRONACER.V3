@@ -1,8 +1,8 @@
 <?php // Replace these with your actual database credentials
 $servername = 'localhost';
 $user = 'root';
-$pass = '';
-$dbname = 'electronacerv3';
+$pass = '123';
+$dbname = 'ELECTRONACERV3';
 
 // Create connection
 $conn = new mysqli($servername, $user, $pass, $dbname);
