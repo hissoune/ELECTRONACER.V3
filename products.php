@@ -62,7 +62,7 @@ if ($searchFilter != '') {
 
 // Fetch low on stock products if the filter is applied
 if (isset($_GET['lowOnStock'])) {
-    $productQuery .= " AND stock_quantity <= 10";
+    $productQuery .= " AND stock_quantity <= min_quantity";
 }
 
 // Add the limit clause to the query
@@ -82,9 +82,9 @@ $productResult = mysqli_query($conn, $productQuery);
     <link rel="icon" href="img/electric.png">
     <title>Product Listing</title>
     <style>
-        .card {
-            margin-bottom: 20px;
-        }
+    .card {
+        margin-bottom: 20px;
+    }
     </style>
 </head>
 
@@ -100,25 +100,29 @@ $productResult = mysqli_query($conn, $productQuery);
                     <select name="categoryFilter" id="categoryFilter" class="form-select">
                         <option value="">All Categories</option>
                         <?php foreach ($categories as $category) : ?>
-                            <option value="<?php echo $category['category_id']; ?>" <?php echo ($categoryFilter == $category['category_id']) ? 'selected' : ''; ?>>
-                                <?php echo $category['category_name']; ?></option>
+                        <option value="<?php echo $category['category_id']; ?>"
+                            <?php echo ($categoryFilter == $category['category_id']) ? 'selected' : ''; ?>>
+                            <?php echo $category['category_name']; ?></option>
                         <?php endforeach; ?>
                     </select>
                 </div>
                 <div class="col-md-4">
                     <label for="minPrice" class="form-label">Min Price:</label>
-                    <input type="text" name="minPrice" id="minPrice" class="form-control" value="<?php echo $minPriceFilter; ?>">
+                    <input type="text" name="minPrice" id="minPrice" class="form-control"
+                        value="<?php echo $minPriceFilter; ?>">
                 </div>
                 <div class="col-md-4">
                     <label for="maxPrice" class="form-label">Max Price:</label>
-                    <input type="text" name="maxPrice" id="maxPrice" class="form-control" value="<?php echo $maxPriceFilter; ?>">
+                    <input type="text" name="maxPrice" id="maxPrice" class="form-control"
+                        value="<?php echo $maxPriceFilter; ?>">
                 </div>
             </div>
 
             <div class="row mb-3">
                 <div class="col-md-4">
                     <label for="search" class="form-label">Search:</label>
-                    <input type="text" name="search" id="search" class="form-control" value="<?php echo $searchFilter; ?>">
+                    <input type="text" name="search" id="search" class="form-control"
+                        value="<?php echo $searchFilter; ?>">
                 </div>
             </div>
 
@@ -134,9 +138,9 @@ $productResult = mysqli_query($conn, $productQuery);
                     <a class="page-link" href="<?php echo generatePageLink($page - 1); ?>">Previous</a>
                 </li>
                 <?php for ($i = 1; $i <= $totalPages; $i++) : ?>
-                    <li class="page-item <?php echo ($page == $i) ? 'active' : ''; ?>">
-                        <a class="page-link" href="<?php echo generatePageLink($i); ?>"><?php echo $i; ?></a>
-                    </li>
+                <li class="page-item <?php echo ($page == $i) ? 'active' : ''; ?>">
+                    <a class="page-link" href="<?php echo generatePageLink($i); ?>"><?php echo $i; ?></a>
+                </li>
                 <?php endfor; ?>
                 <li class="page-item <?php echo ($page == $totalPages || $totalPages == 0) ? 'disabled' : ''; ?>">
                     <a class="page-link" href="<?php echo generatePageLink($page + 1); ?>">Next</a>
@@ -145,24 +149,25 @@ $productResult = mysqli_query($conn, $productQuery);
         </nav>
         <div class="row" id="products-container">
             <?php while ($row = mysqli_fetch_assoc($productResult)) : ?>
-                <div class="col-md-4">
-                    <div class="card">
-                        <!-- Make the image clickable and link to the product detail page -->
-                        <a href="product-details.php?id=<?php echo $row['product_id']; ?>">
-                            <img src="./img/<?php echo $row['image']; ?>" class=" card-img-top" alt="<?php echo $row['label']; ?>">
-                        </a>
-                        <div class="card-body">
-                            <h5 class="card-title"><?php echo $row['label']; ?></h5>
-                            <p class="card-text">Price: $<?php echo $row['final_price']; ?></p>
-                            <!-- Add to Cart button -->
-                            <form method="post" action="cart.php?action=add&id=<?php echo $row['product_id']; ?>">
-                                <input type="hidden" name="hidden_name" value="<?php echo $row['label']; ?>">
-                                <input type="hidden" name="hidden_price" value="<?php echo $row['final_price']; ?>">
-                                <input type="submit" name="add_to_cart" value="Add to Cart" class="btn btn-primary">
-                            </form>
-                        </div>
+            <div class="col-md-4">
+                <div class="card">
+                    <!-- Make the image clickable and link to the product detail page -->
+                    <a href="product-details.php?id=<?php echo $row['product_id']; ?>">
+                        <img src="./img/<?php echo $row['image']; ?>" class=" card-img-top"
+                            alt="<?php echo $row['label']; ?>">
+                    </a>
+                    <div class="card-body">
+                        <h5 class="card-title"><?php echo $row['label']; ?></h5>
+                        <p class="card-text">Price: $<?php echo $row['final_price']; ?></p>
+                        <!-- Add to Cart button -->
+                        <form method="post" action="cart.php?action=add&id=<?php echo $row['product_id']; ?>">
+                            <input type="hidden" name="hidden_name" value="<?php echo $row['label']; ?>">
+                            <input type="hidden" name="hidden_price" value="<?php echo $row['final_price']; ?>">
+                            <input type="submit" name="add_to_cart" value="Add to Cart" class="btn btn-primary">
+                        </form>
                     </div>
                 </div>
+            </div>
             <?php endwhile; ?>
         </div>
     </div>
@@ -183,39 +188,39 @@ $productResult = mysqli_query($conn, $productQuery);
     }
     ?>
     <script>
-        $(document).ready(function() {
-            // Function to load content using AJAX
-            function loadContent(url) {
-                $.ajax({
-                    type: 'GET',
-                    url: url,
-                    success: function(data) {
-                        $('#products-container').html(data);
-                    }
-                });
-            }
-
-            // Submit the filter form using AJAX
-            $('#filterForm').submit(function(event) {
-                event.preventDefault();
-                var formData = $(this).serialize(); // Fix the typo here
-                loadContent('<?php echo $_SERVER['PHP_SELF']; ?>' + '?' + formData);
+    $(document).ready(function() {
+        // Function to load content using AJAX
+        function loadContent(url) {
+            $.ajax({
+                type: 'GET',
+                url: url,
+                success: function(data) {
+                    $('#products-container').html(data);
+                }
             });
+        }
 
-            // Handle pagination clicks
-            $('.pagination a').on('click', function(event) {
-                event.preventDefault();
-                var page = $(this).attr('href').split('=')[1];
-                var url = '<?php echo $_SERVER['PHP_SELF']; ?>' + '?page=' + page +
-                    '&categoryFilter=' + $('#categoryFilter').val() +
-                    '&minPrice=' + $('#minPrice').val() +
-                    '&maxPrice=' + $('#maxPrice').val() +
-                    '&lowOnStock=' + ($('#lowOnStock').val() == '1' ? '1' : '') +
-                    // Check if the button is clicked
-                    '&search=' + $('#search').val();
-
-                loadContent(url);
-            });
+        // Submit the filter form using AJAX
+        $('#filterForm').submit(function(event) {
+            event.preventDefault();
+            var formData = $(this).serialize(); // Fix the typo here
+            loadContent('<?php echo $_SERVER['PHP_SELF']; ?>' + '?' + formData);
         });
+
+        // Handle pagination clicks
+        $('.pagination a').on('click', function(event) {
+            event.preventDefault();
+            var page = $(this).attr('href').split('=')[1];
+            var url = '<?php echo $_SERVER['PHP_SELF']; ?>' + '?page=' + page +
+                '&categoryFilter=' + $('#categoryFilter').val() +
+                '&minPrice=' + $('#minPrice').val() +
+                '&maxPrice=' + $('#maxPrice').val() +
+                '&lowOnStock=' + ($('#lowOnStock').val() == '1' ? '1' : '') +
+                // Check if the button is clicked
+                '&search=' + $('#search').val();
+
+            loadContent(url);
+        });
+    });
     </script>
     <?php include("footer.php"); ?>
