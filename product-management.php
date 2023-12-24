@@ -5,7 +5,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["toggle_product"])) {
     $productId = $_POST["toggle_product"];
 
     // Toggle the disable status for the specified product
-    $conn->query("UPDATE Products SET disabled = NOT disabled WHERE oduct_id = $productId");
+    $conn->query("UPDATE Products SET disabled = NOT disabled WHERE product_id = $productId");
 }
 
 
