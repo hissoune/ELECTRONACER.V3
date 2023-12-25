@@ -1,7 +1,7 @@
 <?php
 require 'db_cnx.php';
 
-if ($_SERVER['REQUEST_METHOD']) {
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $loopCount = count($_POST['reference']);
 
     for ($i = 0; $i < $loopCount; $i++) {
@@ -25,7 +25,7 @@ if ($_SERVER['REQUEST_METHOD']) {
         $allowed_exs = array("jpg", "jpeg", "png");
     
         if (in_array($img_ex_lc, $allowed_exs)) {
-            $new_img_name = uniqid("IMG-", true) . '.' . $img_ex_lc;
+            $new_img_name = 'IMG_' . time() . '.' . $img_ex_lc;
             $img_upload_path = './img/' . $new_img_name;
             move_uploaded_file($_FILES['image']['tmp_name'][$i], $img_upload_path);
     
@@ -73,7 +73,11 @@ mysqli_close($conn);
 </head>
 
 <body>
+    <div>
     <form method="post" action="" enctype="multipart/form-data" class="container mt-5">
+    <button type="button" onclick="addProduct()" style="display: block;">Add Another Product</button>
+    <button type="submit" class="btn btn-primary btn-sm w-100" name="submit" style="display: block;">Ajouter un produit</button>
+    <a href="admin-dashboard.php?page=product-management" style="display: block;">Display Products</a>
         <div id="products-container">
             <div class="product">
                 <!-- Product Reference -->
@@ -160,15 +164,11 @@ mysqli_close($conn);
                 </div>
             </div>
         </div>
-        <div class="d-grid mt-3">
-            <button type="button" onclick="addProduct()">Add Another Product</button>
-        </div>
-        <!-- Bouton pour soumettre le formulaire -->
-        <div class="d-grid mt-3">
-            <button type="submit" class="btn btn-primary btn-sm w-100" name="submit">Ajouter un produit</button>
-            <a href="admin-dashboard.php?page=product-management">Display Products</a>
-
+        <div>
+        
+          </div>
     </form>
+    </div>
     <script>
     // JavaScript to add more product fields
     function addProduct() {
