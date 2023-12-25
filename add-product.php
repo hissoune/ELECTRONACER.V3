@@ -2,34 +2,37 @@
 require 'db_cnx.php';
 
 if ($_SERVER['REQUEST_METHOD']) {
-    foreach ($_POST['reference'] as $key => $reference) {
-        $label = $_POST['product_name'][$key];
-        $description = $_POST['description'][$key];
-        $purchase_price = $_POST['purchase_price'][$key];
-        $barcode = $_POST['barcode'][$key];
-        $price_offer = $_POST['price_offer'][$key];
-        $final_price = $_POST['final_price'][$key];
-        $min_quantity = $_POST['min_quantity'][$key];
-        $stock_quantity = $_POST['stock_quantity'][$key];
-        $category_id = $_POST['category'][$key];
+    $loopCount = count($_POST['reference']);
 
+    for ($i = 0; $i < $loopCount; $i++) {
+        $reference = $_POST['reference'][$i];
+        $label = $_POST['product_name'][$i];
+        $description = $_POST['description'][$i];
+        $purchase_price = $_POST['purchase_price'][$i];
+        $barcode = $_POST['barcode'][$i];
+        $price_offer = $_POST['price_offer'][$i];
+        $final_price = $_POST['final_price'][$i];
+        $min_quantity = $_POST['min_quantity'][$i];
+        $stock_quantity = $_POST['stock_quantity'][$i];
+        $category_id = $_POST['category'][$i];
+    
         $checkCategoryQuery = "SELECT category_id FROM Categories WHERE category_id = $category_id";
         $checkCategoryResult = mysqli_query($conn, $checkCategoryQuery);
-
-        $img_name = $_FILES['image']['name'][$key];
+    
+        $img_name = $_FILES['image']['name'][$i];
         $img_ex = pathinfo($img_name, PATHINFO_EXTENSION);
         $img_ex_lc = strtolower($img_ex);
         $allowed_exs = array("jpg", "jpeg", "png");
-
+    
         if (in_array($img_ex_lc, $allowed_exs)) {
             $new_img_name = uniqid("IMG-", true) . '.' . $img_ex_lc;
             $img_upload_path = './img/' . $new_img_name;
-            move_uploaded_file($_FILES['image']['tmp_name'][$key], $img_upload_path);
-
+            move_uploaded_file($_FILES['image']['tmp_name'][$i], $img_upload_path);
+    
             if (mysqli_num_rows($checkCategoryResult) > 0) {
                 $query = "INSERT INTO Products (reference, label, description, purchase_price, barcode, price_offer, final_price, min_quantity, stock_quantity, image, category_id) 
                           VALUES ('$reference', '$label', '$description', '$purchase_price', '$barcode', '$price_offer', '$final_price', '$min_quantity', '$stock_quantity', '$new_img_name', '$category_id')";
-
+    
                 if (mysqli_query($conn, $query)) {
                     echo "Product added successfully!";
                 } else {
