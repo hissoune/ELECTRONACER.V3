@@ -191,15 +191,17 @@ $productResult = mysqli_query($conn, $productQuery);
     $(document).ready(function() {
         // Function to load content using AJAX
         function loadContent(url) {
+            // Using jQuery's ajax function to make an asynchronous GET request
             $.ajax({
-                type: 'GET',
-                url: url,
+                type: 'GET', // HTTP request method
+                url: url, // URL to which the request is sent
                 success: function(data) {
+                    // Callback function executed if the request is successful
+                    // It updates the HTML content of the element with ID 'products-container'
                     $('#products-container').html(data);
                 }
             });
         }
-
         // Submit the filter form using AJAX
         $('#filterForm').submit(function(event) {
             event.preventDefault();

@@ -36,6 +36,9 @@ $conn->close();
 </head>
 
 <body>
+    <?php
+    include("nav.php")
+    ?>
     <section>
         <div class="container">
             <div class="row">
