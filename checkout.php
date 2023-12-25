@@ -1,6 +1,12 @@
 <?php
-session_start(); // Start the session
-include 'db_cnx.php'; // Include your database connection file
+include('db_cnx.php');
+session_start();
+
+// Check if the user is logged in
+if (!isset($_SESSION["user"])) {
+    header("Location: login.php");
+    exit();
+}
 // Initialize variables
 
 $sendDate = date("Y-m-d", strtotime("+1 days"));  // Initialize $sendDate with the current date
