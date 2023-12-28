@@ -1,7 +1,7 @@
 <?php
 require 'db_cnx.php';
 
-if ($_SERVER['REQUEST_METHOD']) {
+if ($_SERVER['REQUEST_METHOD']=='POST') {
     $loopCount = count($_POST['reference']);
 
     for ($i = 0; $i < $loopCount; $i++) {
@@ -19,7 +19,7 @@ if ($_SERVER['REQUEST_METHOD']) {
         $checkCategoryQuery = "SELECT category_id FROM Categories WHERE category_id = $category_id";
         $checkCategoryResult = mysqli_query($conn, $checkCategoryQuery);
         // Handle image upload
-        $img_name = mysqli_real_escape_string($conn, $images['name'][$i]);
+        $img_name = mysqli_real_escape_string($conn, $_FILES['image']['name'][$i]);
         $img_size = $_FILES['image']['size'][$i];
         $tmp_name = $_FILES['image']['tmp_name'][$i];
         $error = $_FILES['image']['error'][$i];
@@ -76,9 +76,7 @@ VALUES ('$reference', '$label', '$description', $purchase_price, '$barcode', $pr
 <body>
     <div>
     <form method="post" action="" enctype="multipart/form-data" class="container mt-5">
-    <button type="button" onclick="addProduct()" style="display: block;">Add Another Product</button>
-    <button type="submit" class="btn btn-primary btn-sm w-100" name="submit" style="display: block;">Ajouter un produit</button>
-    <a href="admin-dashboard.php?page=product-management" style="display: block;">Display Products</a>
+    
         <div id="products-container">
             <div class="product">
                 <!-- Product Reference -->
@@ -99,22 +97,22 @@ VALUES ('$reference', '$label', '$description', $purchase_price, '$barcode', $pr
                 <!-- Product purchase_price -->
                 <div class="input-group mb-3">
                     <span class="input-group-text" id="basic-addon1">Purchase Price</span>
-                    <input type="text" class="form-control" placeholder="Purchase Price" name="purchase_price[]" aria-label="Purchase Price" aria-describedby="basic-addon1" required>
+                    <input type="number" class="form-control" placeholder="Purchase Price" name="purchase_price[]" aria-label="Purchase Price" aria-describedby="basic-addon1" required>
                 </div>
                 <!-- Product purchase_price -->
                 <div class="input-group mb-3">
                     <span class="input-group-text" id="basic-addon1">Barcode</span>
-                    <input type="text" class="form-control" placeholder="Barcode" name="barcode[]" aria-label="Barcode" aria-describedby="basic-addon1" required>
+                    <input type="number" class="form-control" placeholder="Barcode" name="barcode[]" aria-label="Barcode" aria-describedby="basic-addon1" required>
                 </div>
                 <!-- Product price_offer -->
                 <div class="input-group mb-3">
                     <span class="input-group-text" id="basic-addon1">Price Offer</span>
-                    <input type="text" class="form-control" placeholder="Price Offer" name="price_offer[]" aria-label="Price Offer" aria-describedby="basic-addon1" required>
+                    <input type="number" class="form-control" placeholder="Price Offer" name="price_offer[]" aria-label="Price Offer" aria-describedby="basic-addon1" required>
                 </div>
                 <!-- Product final_price -->
                 <div class="input-group mb-3">
                     <span class="input-group-text" id="basic-addon1">Final Price</span>
-                    <input type="text" class="form-control" placeholder="Final Price" name="final_price[]" aria-label="Final Price" aria-describedby="basic-addon1" required>
+                    <input type="number" class="form-control" placeholder="Final Price" name="final_price[]" aria-label="Final Price" aria-describedby="basic-addon1" required>
                 </div>
                 <!-- Product min_quantity -->
                 <div class="input-group mb-3">
@@ -124,7 +122,7 @@ VALUES ('$reference', '$label', '$description', $purchase_price, '$barcode', $pr
                 <!-- Product stock_quantity -->
                 <div class="input-group mb-3">
                     <span class="input-group-text" id="basic-addon1">Stock Quantity</span>
-                    <input type="text" class="form-control" placeholder="Stock Quantity" name="stock_quantity[]" aria-label="Stock Quantity" aria-describedby="basic-addon1" required>
+                    <input type="number" class="form-control" placeholder="Stock Quantity" name="stock_quantity[]" aria-label="Stock Quantity" aria-describedby="basic-addon1" required>
                 </div>
                 <!-- Image du produit -->
                 <div class="mb-3 mt-3">
@@ -157,7 +155,9 @@ VALUES ('$reference', '$label', '$description', $purchase_price, '$barcode', $pr
             </div>
         </div>
         <div>
-        
+        <button type="button" onclick="addProduct()" style="display: block;">Add Another Product</button>
+    <button type="submit" class="btn btn-primary btn-sm w-100" name="submit" style="display: block;">Ajouter un produit</button>
+    <a href="admin-dashboard.php?page=product-management" style="display: block;">Display Products</a>
           </div>
     </form>
     </div>
